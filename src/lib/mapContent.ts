@@ -29,7 +29,22 @@ export interface MappedHero {
   backgroundImages: MappedAsset[];
 }
 
-export type MappedComponent = MappedHero;
+export interface MappedStatItem {
+  id: string;
+  type: 'stat';
+  title: string;
+  value: string;
+  description?: string;
+}
+
+export interface MappedStats {
+  id: string;
+  type: 'stats';
+  title?: string;
+  items: MappedStatItem[];
+}
+
+export type MappedComponent = MappedHero | MappedStats;
 
 export interface MappedPage {
   title: string;
@@ -101,8 +116,32 @@ function mapHero(entry: Entry): MappedHero {
   };
 }
 
+function mapStatItem(entry: Entry): MappedStatItem {
+  const fields = entry.fields as Record<string, any>;
+  return {
+    id: entry.sys.id,
+    type: 'stat',
+    title: fields.title ?? '',
+    value: fields.value ?? '',
+    description: fields.description
+  };
+}
+
+function mapStats(entry: Entry): MappedStats {
+  const fields = entry.fields as Record<string, any>;
+  return {
+    id: entry.sys.id,
+    type: 'stats',
+    title: fields.title,
+    items: Array.isArray(fields.items)
+      ? fields.items.filter(isEntry).map(mapStatItem)
+      : []
+  };
+}
+
 const mappers: Record<string, (entry: Entry) => MappedComponent> = {
-  heroComponent: mapHero
+  heroComponent: mapHero,
+  stats: mapStats
 };
 
 function mapEntry(entry: Entry): MappedComponent | null {

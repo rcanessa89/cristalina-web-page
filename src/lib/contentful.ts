@@ -15,7 +15,8 @@ export const getPageContent = async (slug: string, locale: 'es' | 'en') => {
     content_type: 'page',
     'fields.slug': slug,
     limit: 1,
-    locale
+    locale,
+    include: 3
   });
 
   return entries.items[0]?.fields || null;
