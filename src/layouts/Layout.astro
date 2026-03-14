@@ -1,11 +1,17 @@
 ---
 import '../styles/global.css';
+import Navigation from '../components/Navigation';
+import { getNavigation } from '../lib/contentful';
+import { mapNavigation } from '../lib/mapContent';
 
 interface Props {
 	title?: string;
 }
 
 const { title = 'Cristalina' } = Astro.props;
+const locale = (Astro.currentLocale as 'es' | 'en') ?? 'es';
+const navData = await getNavigation(locale);
+const navigation = navData ? mapNavigation(navData) : { links: [] };
 ---
 
 <!doctype html>
@@ -19,6 +25,7 @@ const { title = 'Cristalina' } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
+		<Navigation links={navigation.links} />
 		<slot />
 	</body>
 </html>

@@ -20,3 +20,14 @@ export const getPageContent = async (slug: string, locale: 'es' | 'en') => {
 
   return entries.items[0]?.fields || null;
 };
+
+export const getNavigation = async (locale: 'es' | 'en') => {
+  const entries = await contentfulClient.getEntries({
+    content_type: 'layoutNavigation',
+    limit: 1,
+    locale,
+    include: 2
+  });
+
+  return entries.items[0]?.fields || null;
+};

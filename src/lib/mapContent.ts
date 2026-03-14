@@ -14,7 +14,8 @@ export interface MappedLink {
   id: string;
   type: 'link';
   linkText: string;
-  url: string;
+  url?: string;
+  children?: MappedLink[];
 }
 
 export interface MappedHero {
@@ -71,11 +72,16 @@ function mapAsset(asset: Asset): MappedAsset {
 
 function mapLink(entry: Entry): MappedLink {
   const fields = entry.fields as Record<string, any>;
+  const children = Array.isArray(fields.children)
+    ? fields.children.filter(isEntry).map(mapLink)
+    : undefined;
+
   return {
     id: entry.sys.id,
     type: 'link',
     linkText: fields.linkText ?? '',
-    url: fields.url ?? ''
+    url: fields.url,
+    children: children?.length ? children : undefined
   };
 }
 
@@ -109,6 +115,18 @@ function mapEntry(entry: Entry): MappedComponent | null {
   }
 
   return mapper(entry);
+}
+
+export interface MappedNavigation {
+  links: MappedLink[];
+}
+
+export function mapNavigation(fields: Record<string, any>): MappedNavigation {
+  const links = fields.links ?? [];
+
+  return {
+    links: Array.isArray(links) ? links.filter(isEntry).map(mapLink) : []
+  };
 }
 
 export function mapPage(fields: Record<string, any>): MappedPage {

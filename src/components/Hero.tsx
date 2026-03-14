@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { MappedHero } from '../lib/mapContent';
 
-const INTERVAL_MS = 3000;
+const INTERVAL_MS = 4000;
 const TRANSITION_MS = 1000;
 
 export default function Hero({
@@ -21,9 +21,9 @@ export default function Hero({
 
     return () => clearInterval(timer);
   }, [backgroundImages.length]);
-
+ 
   return (
-    <section className="hero relative min-h-screen overflow-hidden">
+    <section className="hero relative min-h-[80vh] overflow-hidden">
       {backgroundImages.map((img, i) => (
         <div
           key={img.url}

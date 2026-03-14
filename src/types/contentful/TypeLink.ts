@@ -16,9 +16,15 @@ export interface TypeLinkFields {
     /**
      * Field type definition for field 'url' (Url)
      * @name Url
+     * @localized true
+     */
+    url?: EntryFieldTypes.Symbol;
+    /**
+     * Field type definition for field 'children' (Children)
+     * @name Children
      * @localized false
      */
-    url: EntryFieldTypes.Symbol;
+    children?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeLinkSkeleton>>;
 }
 
 /**
@@ -26,7 +32,7 @@ export interface TypeLinkFields {
  * @name TypeLinkSkeleton
  * @type {TypeLinkSkeleton}
  * @since 2026-03-14T09:00:25.652Z
- * @version 1
+ * @version 7
  */
 export type TypeLinkSkeleton = EntrySkeletonType<TypeLinkFields, "link">;
 /**
@@ -34,6 +40,6 @@ export type TypeLinkSkeleton = EntrySkeletonType<TypeLinkFields, "link">;
  * @name TypeLink
  * @type {TypeLink}
  * @since 2026-03-14T09:00:25.652Z
- * @version 1
+ * @version 7
  */
 export type TypeLink<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeLinkSkeleton, Modifiers, Locales>;
