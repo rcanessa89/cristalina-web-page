@@ -1,0 +1,25 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getPageContent } from '../../lib/contentful';
+import { mapPage } from '../../lib/mapContent';
+import ComponentResolver from '../../components/ComponentResolver';
+
+export function getStaticPaths() {
+  return [
+    { params: { slug: 'inicio' } },
+    { params: { slug: 'water-tec-premium' } },
+    { params: { slug: 'water-tec-pro' } },
+    { params: { slug: 'filtracion' } },
+    { params: { slug: 'mantenimiento' } },
+    { params: { slug: 'galeria' } }
+  ];
+}
+
+const { slug } = Astro.params;
+const data = await getPageContent(slug, 'es');
+const page = data ? mapPage(data) : null;
+---
+
+<Layout title={page?.title}>
+  {page && <ComponentResolver components={page.components} client:load />}
+</Layout>
