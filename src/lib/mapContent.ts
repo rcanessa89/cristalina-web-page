@@ -60,7 +60,32 @@ export interface MappedCardList {
   items: MappedCard[];
 }
 
-export type MappedComponent = MappedHero | MappedStats | MappedCardList;
+export interface MappedFeature {
+  id: string;
+  type: 'feature';
+  title: string;
+  description?: string;
+  icon?: string;
+  image?: MappedAsset;
+}
+
+export interface MappedFeatureList {
+  id: string;
+  type: 'featureList';
+  title?: string;
+  items: MappedFeature[];
+}
+
+export interface MappedCtaBanner {
+  id: string;
+  type: 'ctaBanner';
+  title: string;
+  subtitle?: string;
+  cta?: MappedLink;
+  backgroundImage?: MappedAsset;
+}
+
+export type MappedComponent = MappedHero | MappedStats | MappedCardList | MappedFeatureList | MappedCtaBanner;
 
 export interface MappedPage {
   title: string;
@@ -179,10 +204,50 @@ function mapCardList(entry: Entry): MappedCardList {
   };
 }
 
+function mapFeature(entry: Entry): MappedFeature {
+  const fields = entry.fields as Record<string, any>;
+  return {
+    id: entry.sys.id,
+    type: 'feature',
+    title: fields.title ?? '',
+    description: fields.description,
+    icon: fields.icon,
+    image: isAsset(fields.image) ? mapAsset(fields.image) : undefined
+  };
+}
+
+function mapFeatureList(entry: Entry): MappedFeatureList {
+  const fields = entry.fields as Record<string, any>;
+  return {
+    id: entry.sys.id,
+    type: 'featureList',
+    title: fields.title,
+    items: Array.isArray(fields.items)
+      ? fields.items.filter(isEntry).map(mapFeature)
+      : []
+  };
+}
+
+function mapCtaBanner(entry: Entry): MappedCtaBanner {
+  const fields = entry.fields as Record<string, any>;
+  return {
+    id: entry.sys.id,
+    type: 'ctaBanner',
+    title: fields.title ?? '',
+    subtitle: fields.subtitle,
+    cta: isEntry(fields.cta) ? mapLink(fields.cta) : undefined,
+    backgroundImage: isAsset(fields.backgroundImage)
+      ? mapAsset(fields.backgroundImage)
+      : undefined
+  };
+}
+
 const mappers: Record<string, (entry: Entry) => MappedComponent> = {
   heroComponent: mapHero,
   stats: mapStats,
-  cardList: mapCardList
+  cardList: mapCardList,
+  featureList: mapFeatureList,
+  ctaBanner: mapCtaBanner
 };
 
 function mapEntry(entry: Entry): MappedComponent | null {

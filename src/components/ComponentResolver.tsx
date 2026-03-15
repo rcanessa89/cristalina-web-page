@@ -2,11 +2,15 @@ import type { MappedComponent } from '../lib/mapContent';
 import Hero from './Hero';
 import Stats from './Stats';
 import CardList from './CardList';
+import FeatureList from './FeatureList';
+import CtaBanner from './CtaBanner';
 
 const componentMap: Record<string, React.ComponentType<any>> = {
   heroComponent: Hero,
   stats: Stats,
-  cardList: CardList
+  cardList: CardList,
+  featureList: FeatureList,
+  ctaBanner: CtaBanner
 };
 
 interface ComponentResolverProps {

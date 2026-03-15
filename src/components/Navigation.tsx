@@ -6,9 +6,9 @@ export interface NavigationProps {
 
 export default function Navigation({ links }: NavigationProps) {
   return (
-    <nav className="navbar bg-base-100 shadow-sm">
+    <nav className="navbar bg-primary text-primary-content shadow-lg sticky top-0 z-50">
       <div className="flex-1">
-        <a className="text-xl" href="/">
+        <a className="text-xl font-bold tracking-wide" href="/">
           Cristalina
         </a>
       </div>
@@ -19,7 +19,7 @@ export default function Navigation({ links }: NavigationProps) {
               <li key={link.id} className="w-max">
                 <details>
                   <summary>{link.linkText}</summary>
-                  <ul className="bg-base-100 rounded-t-none p-2 z-99">
+                  <ul className="bg-base-100 text-base-content rounded-t-none p-2 z-99 shadow-lg">
                     {link.children.map((child) => (
                       <li key={child.id} className="w-max">
                         <a href={child.url}>{child.linkText}</a>

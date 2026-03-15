@@ -1,2 +1,40 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: cristalina --default;
+}
+@plugin "daisyui/theme" {
+  name: "cristalina";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-base-100: oklch(98% 0.005 180);
+  --color-base-200: oklch(95% 0.01 180);
+  --color-base-300: oklch(90% 0.015 180);
+  --color-base-content: oklch(25% 0.01 180);
+  --color-primary: oklch(62% 0.13 180);
+  --color-primary-content: oklch(98% 0.005 180);
+  --color-secondary: oklch(35% 0.04 195);
+  --color-secondary-content: oklch(98% 0.005 195);
+  --color-accent: oklch(75% 0.14 185);
+  --color-accent-content: oklch(20% 0.03 185);
+  --color-neutral: oklch(30% 0.01 180);
+  --color-neutral-content: oklch(98% 0.005 180);
+  --color-info: oklch(70% 0.12 220);
+  --color-info-content: oklch(98% 0.01 220);
+  --color-success: oklch(65% 0.2 145);
+  --color-success-content: oklch(98% 0.01 145);
+  --color-warning: oklch(80% 0.18 80);
+  --color-warning-content: oklch(20% 0.05 80);
+  --color-error: oklch(60% 0.25 25);
+  --color-error-content: oklch(98% 0.01 25);
+
+  --radius-selector: 1rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
