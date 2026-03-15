@@ -1,3 +1,5 @@
+export type { TypeCard, TypeCardFields, TypeCardSkeleton } from "./TypeCard";
+export type { TypeCardList, TypeCardListFields, TypeCardListSkeleton } from "./TypeCardList";
 export type { TypeHeroComponent, TypeHeroComponentFields, TypeHeroComponentSkeleton } from "./TypeHeroComponent";
 export type { TypeLayoutNavigation, TypeLayoutNavigationFields, TypeLayoutNavigationSkeleton } from "./TypeLayoutNavigation";
 export type { TypeLink, TypeLinkFields, TypeLinkSkeleton } from "./TypeLink";

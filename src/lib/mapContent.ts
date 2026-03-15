@@ -44,7 +44,23 @@ export interface MappedStats {
   items: MappedStatItem[];
 }
 
-export type MappedComponent = MappedHero | MappedStats;
+export interface MappedCard {
+  id: string;
+  type: 'card';
+  title: string;
+  description?: string;
+  image?: MappedAsset;
+  cta?: MappedLink;
+}
+
+export interface MappedCardList {
+  id: string;
+  type: 'cardList';
+  title?: string;
+  items: MappedCard[];
+}
+
+export type MappedComponent = MappedHero | MappedStats | MappedCardList;
 
 export interface MappedPage {
   title: string;
@@ -139,9 +155,34 @@ function mapStats(entry: Entry): MappedStats {
   };
 }
 
+function mapCard(entry: Entry): MappedCard {
+  const fields = entry.fields as Record<string, any>;
+  return {
+    id: entry.sys.id,
+    type: 'card',
+    title: fields.title ?? '',
+    description: fields.description,
+    image: isAsset(fields.image) ? mapAsset(fields.image) : undefined,
+    cta: isEntry(fields.cta) ? mapLink(fields.cta) : undefined
+  };
+}
+
+function mapCardList(entry: Entry): MappedCardList {
+  const fields = entry.fields as Record<string, any>;
+  return {
+    id: entry.sys.id,
+    type: 'cardList',
+    title: fields.title,
+    items: Array.isArray(fields.items)
+      ? fields.items.filter(isEntry).map(mapCard)
+      : []
+  };
+}
+
 const mappers: Record<string, (entry: Entry) => MappedComponent> = {
   heroComponent: mapHero,
-  stats: mapStats
+  stats: mapStats,
+  cardList: mapCardList
 };
 
 function mapEntry(entry: Entry): MappedComponent | null {
