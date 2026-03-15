@@ -274,6 +274,34 @@ export function mapNavigation(fields: Record<string, any>): MappedNavigation {
   };
 }
 
+export interface MappedFooter {
+  companyName: string;
+  description?: string;
+  links?: MappedLink[];
+  email?: string;
+  phone?: string;
+  address?: string;
+  facebook?: string;
+  instagram?: string;
+  whatsapp?: string;
+}
+
+export function mapFooter(fields: Record<string, any>): MappedFooter {
+  const links = fields.links ?? [];
+
+  return {
+    companyName: fields.companyName ?? '',
+    description: fields.description,
+    links: Array.isArray(links) ? links.filter(isEntry).map(mapLink) : undefined,
+    email: fields.email,
+    phone: fields.phone,
+    address: fields.address,
+    facebook: fields.facebook,
+    instagram: fields.instagram,
+    whatsapp: fields.whatsapp
+  };
+}
+
 export function mapPage(fields: Record<string, any>): MappedPage {
   const content = fields.content ?? [];
 

@@ -27,7 +27,7 @@ export interface TypeCardListFields {
  * @name TypeCardListSkeleton
  * @type {TypeCardListSkeleton}
  * @since 2026-03-14T23:41:05.333Z
- * @version 1
+ * @version 3
  */
 export type TypeCardListSkeleton = EntrySkeletonType<TypeCardListFields, "cardList">;
 /**
@@ -35,6 +35,6 @@ export type TypeCardListSkeleton = EntrySkeletonType<TypeCardListFields, "cardLi
  * @name TypeCardList
  * @type {TypeCardList}
  * @since 2026-03-14T23:41:05.333Z
- * @version 1
+ * @version 3
  */
 export type TypeCardList<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeCardListSkeleton, Modifiers, Locales>;

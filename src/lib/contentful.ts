@@ -32,3 +32,18 @@ export const getNavigation = async (locale: 'es' | 'en') => {
 
   return entries.items[0]?.fields || null;
 };
+
+export const getFooter = async (locale: 'es' | 'en') => {
+  try {
+    const entries = await contentfulClient.getEntries({
+      content_type: 'footerLayout',
+      limit: 1,
+      locale,
+      include: 2
+    });
+
+    return entries.items[0]?.fields || null;
+  } catch {
+    return null;
+  }
+};

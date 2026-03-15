@@ -1,8 +1,9 @@
 ---
 import '../styles/global.css';
 import Navigation from '../components/Navigation';
-import { getNavigation } from '../lib/contentful';
-import { mapNavigation } from '../lib/mapContent';
+import Footer from '../components/Footer';
+import { getNavigation, getFooter } from '../lib/contentful';
+import { mapNavigation, mapFooter } from '../lib/mapContent';
 
 interface Props {
 	title?: string;
@@ -11,11 +12,13 @@ interface Props {
 const { title = 'Cristalina' } = Astro.props;
 const locale = (Astro.currentLocale as 'es' | 'en') ?? 'es';
 const navData = await getNavigation(locale);
+const footerData = await getFooter(locale);
 const navigation = navData ? mapNavigation(navData) : { links: [] };
+const footer = footerData ? mapFooter(footerData) : null;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={locale}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
@@ -26,6 +29,9 @@ const navigation = navData ? mapNavigation(navData) : { links: [] };
 	</head>
 	<body>
 		<Navigation links={navigation.links} />
-		<slot />
+		<main>
+			<slot />
+		</main>
+		{footer && <Footer {...footer} />}
 	</body>
 </html>
