@@ -3,12 +3,14 @@ import Hero from './Hero';
 import Stats from './Stats';
 import CardList from './CardList';
 import FeatureList from './FeatureList';
+import LogoBar from './LogoBar';
 
 const componentMap: Record<string, React.ComponentType<any>> = {
   heroComponent: Hero,
   stats: Stats,
   cardList: CardList,
-  featuredList: FeatureList
+  featuredList: FeatureList,
+  logoBar: LogoBar
 };
 
 interface ComponentResolverProps {

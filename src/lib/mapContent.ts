@@ -86,7 +86,14 @@ export interface MappedCtaBanner {
   backgroundImage?: MappedAsset;
 }
 
-export type MappedComponent = MappedHero | MappedStats | MappedCardList | MappedFeatureList | MappedCtaBanner;
+export interface MappedLogoBar {
+  id: string;
+  type: 'logoBar';
+  title?: string;
+  logos: MappedAsset[];
+}
+
+export type MappedComponent = MappedHero | MappedStats | MappedCardList | MappedFeatureList | MappedCtaBanner | MappedLogoBar;
 
 export interface MappedPage {
   title: string;
@@ -244,12 +251,25 @@ function mapCtaBanner(entry: Entry): MappedCtaBanner {
   };
 }
 
+function mapLogoBar(entry: Entry): MappedLogoBar {
+  const fields = entry.fields as Record<string, any>;
+  return {
+    id: entry.sys.id,
+    type: 'logoBar',
+    title: fields.title,
+    logos: Array.isArray(fields.logos)
+      ? fields.logos.filter(isAsset).map(mapAsset)
+      : []
+  };
+}
+
 const mappers: Record<string, (entry: Entry) => MappedComponent> = {
   heroComponent: mapHero,
   stats: mapStats,
   cardList: mapCardList,
   featuredList: mapFeatureList,
-  ctaBanner: mapCtaBanner
+  ctaBanner: mapCtaBanner,
+  logoBar: mapLogoBar
 };
 
 function mapEntry(entry: Entry): MappedComponent | null {
