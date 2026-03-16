@@ -19,71 +19,105 @@ export default function Footer({
   const hasContact = email || phone || address;
 
   return (
-    <>
-      <footer className="footer sm:footer-horizontal bg-neutral text-neutral-content p-10">
-        <aside>
-          <p className="text-lg font-bold">{companyName}</p>
-          {description && <p className="max-w-xs">{description}</p>}
-        </aside>
-        {links && links.length > 0 && (
-          <nav>
-            <h6 className="footer-title">Links</h6>
-            {links.map((link) => (
-              <a key={link.id} href={link.url} className="link link-hover">
-                {link.linkText}
-              </a>
-            ))}
-          </nav>
-        )}
-        {hasContact && (
-          <nav>
-            <h6 className="footer-title">Contacto</h6>
-            {phone && (
-              <a href={`tel:${phone}`} className="link link-hover inline-flex items-center gap-2">
-                <Phone size={16} /> {phone}
-              </a>
+    <footer className="bg-neutral text-neutral-content">
+      <div className="max-w-6xl mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div>
+            <p className="text-2xl font-bold mb-3">{companyName}</p>
+            {description && (
+              <p className="text-neutral-content/60 leading-relaxed">{description}</p>
             )}
-            {email && (
-              <a href={`mailto:${email}`} className="link link-hover inline-flex items-center gap-2">
-                <Mail size={16} /> {email}
-              </a>
+            {hasSocial && (
+              <div className="flex gap-4 mt-6">
+                {facebook && (
+                  <a
+                    href={facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook"
+                    className="w-10 h-10 rounded-full bg-neutral-content/10 flex items-center justify-center hover:bg-primary hover:text-primary-content transition-colors"
+                  >
+                    <FacebookIcon size={18} />
+                  </a>
+                )}
+                {instagram && (
+                  <a
+                    href={instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                    className="w-10 h-10 rounded-full bg-neutral-content/10 flex items-center justify-center hover:bg-primary hover:text-primary-content transition-colors"
+                  >
+                    <InstagramIcon size={18} />
+                  </a>
+                )}
+                {whatsapp && (
+                  <a
+                    href={`https://wa.me/${whatsapp}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="WhatsApp"
+                    className="w-10 h-10 rounded-full bg-neutral-content/10 flex items-center justify-center hover:bg-primary hover:text-primary-content transition-colors"
+                  >
+                    <WhatsAppIcon size={18} />
+                  </a>
+                )}
+              </div>
             )}
-            {address && (
-              <p className="inline-flex items-center gap-2">
-                <MapPin size={16} /> {address}
-              </p>
-            )}
-          </nav>
-        )}
-      </footer>
-      <footer className="footer sm:footer-horizontal footer-center bg-neutral text-neutral-content border-t border-neutral-content/10 px-10 py-4">
-        <aside>
-          <p>
-            &copy; {new Date().getFullYear()} {companyName}
-          </p>
-        </aside>
-        {hasSocial && (
-          <nav>
-            <div className="grid grid-flow-col gap-4">
-              {facebook && (
-                <a href={facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                  <FacebookIcon className="hover:text-primary transition-colors" />
-                </a>
-              )}
-              {instagram && (
-                <a href={instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                  <InstagramIcon className="hover:text-primary transition-colors" />
-                </a>
-              )}
-              {whatsapp && (
-                <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-                  <WhatsAppIcon className="hover:text-primary transition-colors" />
-                </a>
-              )}
+          </div>
+
+          {links && links.length > 0 && (
+            <div>
+              <h6 className="text-sm font-semibold uppercase tracking-wider text-neutral-content/50 mb-4">
+                Links
+              </h6>
+              <ul className="space-y-3">
+                {links.map((link) => (
+                  <li key={link.id}>
+                    <a href={link.url} className="text-neutral-content/70 hover:text-primary transition-colors">
+                      {link.linkText}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </nav>
-        )}
-      </footer>
-    </>
+          )}
+
+          {hasContact && (
+            <div>
+              <h6 className="text-sm font-semibold uppercase tracking-wider text-neutral-content/50 mb-4">
+                Contacto
+              </h6>
+              <ul className="space-y-3">
+                {phone && (
+                  <li>
+                    <a href={`tel:${phone}`} className="inline-flex items-center gap-3 text-neutral-content/70 hover:text-primary transition-colors">
+                      <Phone size={16} /> {phone}
+                    </a>
+                  </li>
+                )}
+                {email && (
+                  <li>
+                    <a href={`mailto:${email}`} className="inline-flex items-center gap-3 text-neutral-content/70 hover:text-primary transition-colors">
+                      <Mail size={16} /> {email}
+                    </a>
+                  </li>
+                )}
+                {address && (
+                  <li className="inline-flex items-start gap-3 text-neutral-content/70">
+                    <MapPin size={16} className="shrink-0 mt-1" /> {address}
+                  </li>
+                )}
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="border-t border-neutral-content/10 px-6 py-4">
+        <p className="text-center text-sm text-neutral-content/40">
+          &copy; {new Date().getFullYear()} {companyName}
+        </p>
+      </div>
+    </footer>
   );
 }

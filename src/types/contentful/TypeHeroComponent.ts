@@ -9,6 +9,12 @@ import type { TypeLinkSkeleton } from "./TypeLink";
  */
 export interface TypeHeroComponentFields {
     /**
+     * Field type definition for field 'variant' (Variant)
+     * @name Variant
+     * @localized false
+     */
+    variant: EntryFieldTypes.Symbol;
+    /**
      * Field type definition for field 'title' (Title)
      * @name Title
      * @localized true
@@ -51,7 +57,7 @@ export interface TypeHeroComponentFields {
  * @name TypeHeroComponentSkeleton
  * @type {TypeHeroComponentSkeleton}
  * @since 2026-03-14T08:34:47.851Z
- * @version 17
+ * @version 19
  */
 export type TypeHeroComponentSkeleton = EntrySkeletonType<TypeHeroComponentFields, "heroComponent">;
 /**
@@ -59,6 +65,6 @@ export type TypeHeroComponentSkeleton = EntrySkeletonType<TypeHeroComponentField
  * @name TypeHeroComponent
  * @type {TypeHeroComponent}
  * @since 2026-03-14T08:34:47.851Z
- * @version 17
+ * @version 19
  */
 export type TypeHeroComponent<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeHeroComponentSkeleton, Modifiers, Locales>;

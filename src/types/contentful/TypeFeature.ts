@@ -38,7 +38,7 @@ export interface TypeFeatureFields {
  * @name TypeFeatureSkeleton
  * @type {TypeFeatureSkeleton}
  * @since 2026-03-16T02:00:47.272Z
- * @version 1
+ * @version 7
  */
 export type TypeFeatureSkeleton = EntrySkeletonType<TypeFeatureFields, "feature">;
 /**
@@ -46,6 +46,6 @@ export type TypeFeatureSkeleton = EntrySkeletonType<TypeFeatureFields, "feature"
  * @name TypeFeature
  * @type {TypeFeature}
  * @since 2026-03-16T02:00:47.272Z
- * @version 1
+ * @version 7
  */
 export type TypeFeature<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeFeatureSkeleton, Modifiers, Locales>;

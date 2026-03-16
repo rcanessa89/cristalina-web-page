@@ -39,7 +39,7 @@ export default function Navigation({ links, locale = 'es' }: NavigationProps) {
   const altHref = locale === 'es' ? '/en/home' : '/es/inicio';
 
   return (
-    <nav className="navbar bg-primary text-primary-content shadow-lg sticky top-0 z-50">
+    <nav className="navbar bg-secondary/95 backdrop-blur-sm text-secondary-content shadow-lg sticky top-0 z-50 border-b border-white/5">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -59,7 +59,7 @@ export default function Navigation({ links, locale = 'es' }: NavigationProps) {
             </li>
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl font-bold tracking-wide" href={homeHref}>
+        <a className="btn btn-ghost text-xl font-bold tracking-wider" href={homeHref}>
           Cristalina
         </a>
       </div>
@@ -67,7 +67,7 @@ export default function Navigation({ links, locale = 'es' }: NavigationProps) {
         <ul className="menu menu-horizontal px-1">
           <MenuItems links={links} />
           <li>
-            <a href={altHref} lang={altLocale} className="font-semibold">
+            <a href={altHref} lang={altLocale} className="font-semibold opacity-70 hover:opacity-100 transition-opacity">
               {altLabel}
             </a>
           </li>
