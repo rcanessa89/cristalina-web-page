@@ -8,13 +8,13 @@ export default function CardList({ title, items }: MappedCardList) {
       )}
       <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
         {items.map((card) => (
-          <div key={card.id} className="card bg-base-100 shadow-md w-full md:w-80">
+          <div key={card.id} className="card bg-base-100 shadow-md w-full md:w-96">
             {card.image && (
               <figure>
                 <img
                   src={card.image.url}
                   alt={card.image.title}
-                  className="w-full h-64 object-cover"
+                  className="w-full h-64 object-contain bg-base-200 p-4"
                 />
               </figure>
             )}

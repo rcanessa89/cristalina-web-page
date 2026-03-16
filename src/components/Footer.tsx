@@ -1,4 +1,5 @@
 import type { MappedFooter } from '../lib/mapContent';
+import { Phone, Mail, MapPin } from 'lucide-react';
 import FacebookIcon from './icons/FacebookIcon';
 import InstagramIcon from './icons/InstagramIcon';
 import WhatsAppIcon from './icons/WhatsAppIcon';
@@ -38,16 +39,20 @@ export default function Footer({
           <nav>
             <h6 className="footer-title">Contacto</h6>
             {phone && (
-              <a href={`tel:${phone}`} className="link link-hover">
-                {phone}
+              <a href={`tel:${phone}`} className="link link-hover inline-flex items-center gap-2">
+                <Phone size={16} /> {phone}
               </a>
             )}
             {email && (
-              <a href={`mailto:${email}`} className="link link-hover">
-                {email}
+              <a href={`mailto:${email}`} className="link link-hover inline-flex items-center gap-2">
+                <Mail size={16} /> {email}
               </a>
             )}
-            {address && <p>{address}</p>}
+            {address && (
+              <p className="inline-flex items-center gap-2">
+                <MapPin size={16} /> {address}
+              </p>
+            )}
           </nav>
         )}
       </footer>

@@ -27,6 +27,7 @@ export interface MappedHero {
   image?: MappedAsset;
   imageReverse?: boolean;
   backgroundImages: MappedAsset[];
+  variant?: 'full' | 'compact';
 }
 
 export interface MappedStatItem {
@@ -153,7 +154,8 @@ function mapHero(entry: Entry): MappedHero {
     imageReverse: fields.imageReverse,
     backgroundImages: Array.isArray(fields.backgroundImage)
       ? fields.backgroundImage.filter(isAsset).map(mapAsset)
-      : []
+      : [],
+    variant: fields.variant ?? 'full'
   };
 }
 

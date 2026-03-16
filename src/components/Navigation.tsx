@@ -34,6 +34,9 @@ function MenuItems({ links }: { links: MappedLink[] }) {
 
 export default function Navigation({ links, locale = 'es' }: NavigationProps) {
   const homeHref = locale === 'es' ? '/es/inicio' : '/en/home';
+  const altLocale = locale === 'es' ? 'en' : 'es';
+  const altLabel = locale === 'es' ? 'EN' : 'ES';
+  const altHref = locale === 'es' ? '/en/home' : '/es/inicio';
 
   return (
     <nav className="navbar bg-primary text-primary-content shadow-lg sticky top-0 z-50">
@@ -49,6 +52,11 @@ export default function Navigation({ links, locale = 'es' }: NavigationProps) {
             className="menu menu-sm dropdown-content bg-base-100 text-base-content rounded-box mt-3 w-52 p-2 shadow-lg z-99"
           >
             <MenuItems links={links} />
+            <li>
+              <a href={altHref} lang={altLocale}>
+                {altLabel}
+              </a>
+            </li>
           </ul>
         </div>
         <a className="btn btn-ghost text-xl font-bold tracking-wide" href={homeHref}>
@@ -58,6 +66,11 @@ export default function Navigation({ links, locale = 'es' }: NavigationProps) {
       <div className="navbar-end hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <MenuItems links={links} />
+          <li>
+            <a href={altHref} lang={altLocale} className="font-semibold">
+              {altLabel}
+            </a>
+          </li>
         </ul>
       </div>
     </nav>

@@ -1,8 +1,9 @@
 import type { MappedFeatureList } from '../lib/mapContent';
+import LucideIcon from './icons/LucideIcon';
 
 export default function FeatureList({ title, items }: MappedFeatureList) {
   return (
-    <section className="py-16 px-4">
+    <section className="bg-base-200 py-16 px-4">
       {title && (
         <h2 className="text-3xl font-bold text-center mb-12">{title}</h2>
       )}
@@ -10,7 +11,9 @@ export default function FeatureList({ title, items }: MappedFeatureList) {
         {items.map((feature) => (
           <div key={feature.id} className="text-center px-4">
             {feature.icon && (
-              <div className="text-4xl mb-4 text-primary">{feature.icon}</div>
+              <div className="mb-4 flex justify-center text-primary">
+                <LucideIcon name={feature.icon} size={48} strokeWidth={1.5} />
+              </div>
             )}
             {feature.image && (
               <figure className="mb-4 flex justify-center">
