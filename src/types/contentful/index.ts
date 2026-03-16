@@ -1,5 +1,7 @@
 export type { TypeCard, TypeCardFields, TypeCardSkeleton } from "./TypeCard";
 export type { TypeCardList, TypeCardListFields, TypeCardListSkeleton } from "./TypeCardList";
+export type { TypeFeature, TypeFeatureFields, TypeFeatureSkeleton } from "./TypeFeature";
+export type { TypeFeaturedList, TypeFeaturedListFields, TypeFeaturedListSkeleton } from "./TypeFeaturedList";
 export type { TypeFooterLayout, TypeFooterLayoutFields, TypeFooterLayoutSkeleton } from "./TypeFooterLayout";
 export type { TypeHeroComponent, TypeHeroComponentFields, TypeHeroComponentSkeleton } from "./TypeHeroComponent";
 export type { TypeLayoutNavigation, TypeLayoutNavigationFields, TypeLayoutNavigationSkeleton } from "./TypeLayoutNavigation";

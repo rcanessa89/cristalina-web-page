@@ -37,7 +37,7 @@ export default function Hero({
       ))}
       <div className="hero-overlay relative z-10"></div>
       <div className="hero-content text-neutral-content relative z-20 text-center">
-        <div className="max-w-md">
+        <div className="max-w-2xl">
           <h1 className="mb-5 text-5xl font-bold">{title}</h1>
           <p className="mb-5">{subtitle}</p>
           {cta && (

@@ -71,7 +71,7 @@ export interface MappedFeature {
 
 export interface MappedFeatureList {
   id: string;
-  type: 'featureList';
+  type: 'featuredList';
   title?: string;
   items: MappedFeature[];
 }
@@ -220,7 +220,7 @@ function mapFeatureList(entry: Entry): MappedFeatureList {
   const fields = entry.fields as Record<string, any>;
   return {
     id: entry.sys.id,
-    type: 'featureList',
+    type: 'featuredList',
     title: fields.title,
     items: Array.isArray(fields.items)
       ? fields.items.filter(isEntry).map(mapFeature)
@@ -246,7 +246,7 @@ const mappers: Record<string, (entry: Entry) => MappedComponent> = {
   heroComponent: mapHero,
   stats: mapStats,
   cardList: mapCardList,
-  featureList: mapFeatureList,
+  featuredList: mapFeatureList,
   ctaBanner: mapCtaBanner
 };
 

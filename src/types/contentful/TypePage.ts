@@ -1,5 +1,6 @@
 import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
 import type { TypeCardListSkeleton } from "./TypeCardList";
+import type { TypeFeaturedListSkeleton } from "./TypeFeaturedList";
 import type { TypeHeroComponentSkeleton } from "./TypeHeroComponent";
 import type { TypeStatsSkeleton } from "./TypeStats";
 
@@ -27,7 +28,7 @@ export interface TypePageFields {
      * @name Content
      * @localized false
      */
-    content: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeCardListSkeleton | TypeHeroComponentSkeleton | TypeStatsSkeleton>>;
+    content: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeCardListSkeleton | TypeFeaturedListSkeleton | TypeHeroComponentSkeleton | TypeStatsSkeleton>>;
 }
 
 /**
@@ -35,7 +36,7 @@ export interface TypePageFields {
  * @name TypePageSkeleton
  * @type {TypePageSkeleton}
  * @since 2026-03-14T08:38:57.905Z
- * @version 13
+ * @version 15
  */
 export type TypePageSkeleton = EntrySkeletonType<TypePageFields, "page">;
 /**
@@ -43,6 +44,6 @@ export type TypePageSkeleton = EntrySkeletonType<TypePageFields, "page">;
  * @name TypePage
  * @type {TypePage}
  * @since 2026-03-14T08:38:57.905Z
- * @version 13
+ * @version 15
  */
 export type TypePage<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypePageSkeleton, Modifiers, Locales>;

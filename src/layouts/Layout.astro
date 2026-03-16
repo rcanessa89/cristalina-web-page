@@ -28,7 +28,7 @@ const footer = footerData ? mapFooter(footerData) : null;
 		<title>{title}</title>
 	</head>
 	<body>
-		<Navigation links={navigation.links} />
+		<Navigation links={navigation.links} locale={locale} />
 		<main>
 			<slot />
 		</main>

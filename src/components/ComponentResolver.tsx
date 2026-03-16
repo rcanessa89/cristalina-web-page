@@ -9,7 +9,7 @@ const componentMap: Record<string, React.ComponentType<any>> = {
   heroComponent: Hero,
   stats: Stats,
   cardList: CardList,
-  featureList: FeatureList,
+  featuredList: FeatureList,
   ctaBanner: CtaBanner
 };
 

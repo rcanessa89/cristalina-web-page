@@ -6,15 +6,15 @@ export default function CardList({ title, items }: MappedCardList) {
       {title && (
         <h2 className="text-3xl font-bold text-center mb-10">{title}</h2>
       )}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
         {items.map((card) => (
-          <div key={card.id} className="card bg-base-100 shadow-md">
+          <div key={card.id} className="card bg-base-100 shadow-md w-full md:w-80">
             {card.image && (
               <figure>
                 <img
                   src={card.image.url}
                   alt={card.image.title}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-64 object-cover"
                 />
               </figure>
             )}
