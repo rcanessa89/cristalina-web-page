@@ -13,6 +13,7 @@
     "generate-types": "bun run scripts/generate-types.ts"
   },
   "dependencies": {
+    "@astrojs/netlify": "^7.0.3",
     "@astrojs/react": "^5.0.0",
     "@tailwindcss/vite": "^4.2.1",
     "@types/react": "^19.2.14",

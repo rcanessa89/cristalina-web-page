@@ -1,13 +1,14 @@
 import { createClient } from 'contentful';
 
+const usePreview =
+  import.meta.env.DEV || import.meta.env.CONTENTFUL_USE_PREVIEW === 'true';
+
 export const contentfulClient = createClient({
   space: import.meta.env.CONTENTFUL_SPACE_ID,
-  accessToken: import.meta.env.DEV
+  accessToken: usePreview
     ? import.meta.env.CONTENTFUL_PREVIEW_TOKEN
     : import.meta.env.CONTENTFUL_DELIVERY_TOKEN,
-  host: import.meta.env.DEV
-    ? 'preview.contentful.com'
-    : 'cdn.contentful.com',
+  host: usePreview ? 'preview.contentful.com' : 'cdn.contentful.com',
 });
 
 export const getPageContent = async (slug: string, locale: 'es' | 'en') => {
