@@ -13,7 +13,7 @@ Cristalina is a bilingual (Spanish/English) website for a water treatment compan
 - `bun preview` - Preview production build locally
 - `bun run generate-types-cf` - Fetch Contentful content types and generate TypeScript types into `src/types/contentful/`
 - `bun run migrate-cf <env>` - Run pending Contentful migrations against an environment (staging/master)
-- `bun run seed-version-cf <env> <version>` - Set the migration version tracker manually
+- `bun run migrate-cf <env> --seed <version>` - Set the migration version tracker manually
 
 ## Architecture
 

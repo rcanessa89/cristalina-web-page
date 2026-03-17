@@ -10,9 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "generate-types-cf": "bun run scripts/generate-types.ts",
-    "migrate-cf": "bun run scripts/migrate-cf.ts",
-    "seed-version-cf": "bun run scripts/seed-version.ts"
+    "generate-types-cf": "bun run scripts/generate-types-cf.ts",
+    "migrate-cf": "bun run scripts/migrate-cf.ts"
   },
   "dependencies": {
     "@astrojs/netlify": "^7.0.3",

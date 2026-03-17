@@ -1,5 +1,6 @@
 import { readdirSync } from 'fs'
 import { join } from 'path'
+import { execSync } from 'child_process'
 import { runMigration } from 'contentful-migration'
 
 const envFile = Bun.file('.env')
@@ -160,11 +161,26 @@ function getVersionFromFile(filename: string): number {
 
 // --- Main ---
 
+const seedIndex = Bun.argv.indexOf('--seed')
+const seedVersion = seedIndex !== -1 ? parseInt(Bun.argv[seedIndex + 1], 10) : null
+
 await ensureVersionTracking()
 const locale = await getDefaultLocale()
 let { version: currentVersion, entryId, entryVersion } =
   await getCurrentVersion(locale)
 
+// Seed mode: set version manually and exit
+if (seedVersion !== null) {
+  if (isNaN(seedVersion)) {
+    console.error('Invalid seed version. Usage: bun run migrate-cf <env> --seed <version>')
+    process.exit(1)
+  }
+  await updateVersion(locale, seedVersion, entryId, entryVersion)
+  console.log(`✓ Version set to ${seedVersion} (env: ${environmentId})`)
+  process.exit(0)
+}
+
+// Migration mode: run pending migrations
 const migrationsDir = join(import.meta.dir, '..', 'migrations-cf')
 const allFiles = readdirSync(migrationsDir)
   .filter((f) => f.endsWith('.ts') && /^\d+/.test(f))
@@ -211,4 +227,8 @@ for (const file of pendingFiles) {
   }
 }
 
-console.log('All migrations completed.')
+console.log('All migrations completed.\n')
+
+console.log('Regenerating TypeScript types...')
+execSync('bun run generate-types-cf', { stdio: 'inherit' })
+console.log('✓ Types updated.')
