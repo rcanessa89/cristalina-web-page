@@ -1,0 +1,23 @@
+---
+import type { MappedComponent } from '../lib/mapContent';
+import Hero from './Hero.astro';
+import Stats from './Stats.astro';
+import CardList from './CardList.astro';
+import FeatureList from './FeatureList.astro';
+import LogoBar from './LogoBar.astro';
+
+interface Props {
+  components: MappedComponent[];
+}
+
+const { components } = Astro.props;
+---
+
+{components.map((component) => (
+  component.type === 'heroComponent' ? <Hero {...component} /> :
+  component.type === 'stats' ? <Stats {...component} /> :
+  component.type === 'cardList' ? <CardList {...component} /> :
+  component.type === 'featuredList' ? <FeatureList {...component} /> :
+  component.type === 'logoBar' ? <LogoBar {...component} /> :
+  null
+))}

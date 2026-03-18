@@ -1,0 +1,91 @@
+---
+import type { MappedCardList } from '../lib/mapContent';
+import LucideIcon from './icons/LucideIcon.astro';
+import { slugify } from '../lib/utils';
+
+type Props = MappedCardList;
+
+const { title, items } = Astro.props;
+const isFew = items.length <= 3;
+const sectionId = title ? slugify(title) : undefined;
+---
+
+<section id={sectionId} class="py-20 px-4 bg-base-100">
+  {title && (
+    <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-16 tracking-tight">
+      {title}
+    </h2>
+  )}
+  {isFew ? (
+    <div class:list={['grid grid-cols-1 max-w-5xl mx-auto', items.length === 1 ? 'max-w-lg' : 'md:grid-cols-2']}>
+      {items.map((card, index) => (
+        <div
+          class:list={[
+            'group flex flex-col items-center text-center px-8 py-10 fade-on-scroll',
+            index < items.length - 1 && 'md:border-r md:border-base-300/50'
+          ]}
+          style={`animation-delay: ${(index + 1) * 150}ms`}
+        >
+          {card.image && (
+            <div class="relative mb-8">
+              <img
+                src={card.image.url}
+                alt={card.image.title}
+                class="h-72 md:h-80 object-contain group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+          )}
+          <h3 class="text-2xl font-extrabold mb-3 text-secondary tracking-tight">
+            {card.title}
+          </h3>
+          {card.description && (
+            <p class="text-base-content/60 mb-6 leading-relaxed max-w-sm">
+              {card.description}
+            </p>
+          )}
+          {card.cta && (
+            <a class="btn btn-primary group/btn mt-auto" href={card.cta.url}>
+              {card.cta.linkText}
+              <LucideIcon name="ArrowRight" size={16} class="group-hover/btn:translate-x-1 transition-transform" />
+            </a>
+          )}
+        </div>
+      ))}
+    </div>
+  ) : (
+    <div class="max-w-5xl mx-auto space-y-16">
+      {items.map((card, index) => (
+        <div
+          class:list={[
+            'flex flex-col items-center gap-12 group fade-on-scroll',
+            index % 2 !== 0 ? 'md:flex-row-reverse' : 'md:flex-row'
+          ]}
+        >
+          {card.image && (
+            <div class="md:w-1/2 flex justify-center">
+              <img
+                src={card.image.url}
+                alt={card.image.title}
+                class="h-96 object-contain group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+          )}
+          <div class="md:w-1/2">
+            <h3 class="text-3xl font-extrabold mb-4 text-secondary tracking-tight">{card.title}</h3>
+            {card.description && (
+              <p class="text-lg text-base-content/60 mb-6 leading-relaxed">
+                {card.description}
+              </p>
+            )}
+            {card.cta && (
+              <a class="btn btn-primary group/btn" href={card.cta.url}>
+                {card.cta.linkText}
+                <LucideIcon name="ArrowRight" size={16} class="group-hover/btn:translate-x-1 transition-transform" />
+              </a>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+</section>

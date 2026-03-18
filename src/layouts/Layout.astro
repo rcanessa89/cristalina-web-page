@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
-import Navigation from '../components/Navigation';
-import Footer from '../components/Footer';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
 import { getNavigation, getFooter } from '../lib/contentful';
 import { mapNavigation, mapFooter } from '../lib/mapContent';
 
@@ -29,6 +29,7 @@ const footer = footerData ? mapFooter(footerData) : null;
 		<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<script is:inline>document.documentElement.classList.add('js')</script>
 	</head>
 	<body class="font-jakarta">
 		<Navigation links={navigation.links} locale={locale} />
@@ -36,5 +37,19 @@ const footer = footerData ? mapFooter(footerData) : null;
 			<slot />
 		</main>
 		{footer && <Footer {...footer} />}
+		<script>
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('animate-fade-in-up');
+							observer.unobserve(entry.target);
+						}
+					});
+				},
+				{ threshold: 0.2 }
+			);
+			document.querySelectorAll('.fade-on-scroll').forEach((el) => observer.observe(el));
+		</script>
 	</body>
 </html>

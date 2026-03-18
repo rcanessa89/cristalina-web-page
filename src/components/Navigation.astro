@@ -1,0 +1,89 @@
+---
+import type { MappedLink } from '../lib/mapContent';
+import LucideIcon from './icons/LucideIcon.astro';
+
+interface Props {
+  links: MappedLink[];
+  locale?: string;
+}
+
+const { links, locale = 'es' } = Astro.props;
+const homeHref = locale === 'es' ? '/es/inicio' : '/en/home';
+const altLocale = locale === 'es' ? 'en' : 'es';
+const altLabel = locale === 'es' ? 'EN' : 'ES';
+const altHref = locale === 'es' ? '/en/home' : '/es/inicio';
+
+const linkClass = "relative hover:text-white transition-colors hover:bg-transparent after:absolute after:bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-primary after:rounded-full after:transition-all hover:after:w-4/5";
+---
+
+<nav class="navbar bg-secondary/95 backdrop-blur-sm text-secondary-content shadow-lg sticky top-0 z-50 border-b border-white/5 px-4 md:px-8">
+  <div class="navbar-start">
+    <div class="dropdown">
+      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+        </svg>
+      </div>
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content bg-base-100 text-base-content rounded-box mt-3 w-52 p-2 shadow-lg z-99"
+      >
+        {links.map((link) =>
+          link.children ? (
+            <li>
+              <details>
+                <summary>{link.linkText}</summary>
+                <ul class="bg-base-100 text-base-content rounded-t-none p-2 z-99 shadow-lg w-max">
+                  {link.children.map((child) => (
+                    <li><a href={child.url}>{child.linkText}</a></li>
+                  ))}
+                </ul>
+              </details>
+            </li>
+          ) : (
+            <li><a href={link.url}>{link.linkText}</a></li>
+          )
+        )}
+        <li>
+          <a href={altHref} lang={altLocale} class="flex items-center gap-2">
+            <LucideIcon name="Globe" size={16} />
+            {altLabel}
+          </a>
+        </li>
+      </ul>
+    </div>
+    <a class="btn btn-ghost text-xl font-extrabold tracking-tight" href={homeHref}>
+      Cristalina
+    </a>
+  </div>
+  <div class="navbar-end hidden lg:flex items-center gap-1">
+    <ul class="menu menu-horizontal px-1 text-white/70">
+      {links.map((link) =>
+        link.children ? (
+          <li>
+            <details>
+              <summary class="hover:text-white transition-colors hover:bg-transparent">{link.linkText}</summary>
+              <ul class="bg-base-100 text-base-content rounded-t-none p-2 z-99 shadow-lg w-max">
+                {link.children.map((child) => (
+                  <li><a href={child.url}>{child.linkText}</a></li>
+                ))}
+              </ul>
+            </details>
+          </li>
+        ) : (
+          <li>
+            <a href={link.url} class={linkClass}>{link.linkText}</a>
+          </li>
+        )
+      )}
+    </ul>
+    <a
+      href={altHref}
+      lang={altLocale}
+      class="flex items-center gap-1.5 text-sm text-white/50 hover:text-white transition-colors ml-3 px-3 py-1.5 rounded-full border border-white/15 hover:border-white/30"
+    >
+      <LucideIcon name="Globe" size={14} />
+      {altLabel}
+    </a>
+  </div>
+</nav>

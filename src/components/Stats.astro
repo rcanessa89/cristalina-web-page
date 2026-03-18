@@ -1,0 +1,87 @@
+---
+import type { MappedStats } from '../lib/mapContent';
+
+type Props = MappedStats;
+
+const { title, items } = Astro.props;
+
+function parseValue(value: string) {
+  const match = value.match(/^([^0-9]*)(\d+)(.*)$/);
+  if (!match) return null;
+  return { prefix: match[1], number: match[2], suffix: match[3] };
+}
+---
+
+<section class="relative bg-neutral text-neutral-content py-20 px-4 overflow-hidden">
+  <div
+    class="absolute inset-0 opacity-5"
+    style="background-image: radial-gradient(circle at 25% 25%, #01a89e 0%, transparent 50%), radial-gradient(circle at 75% 75%, #31cdcf 0%, transparent 50%)"
+  />
+  <div class="relative z-10 max-w-4xl mx-auto">
+    {title && (
+      <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-14 tracking-tight">
+        {title}
+      </h2>
+    )}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {items.map((item, index) => {
+        const parsed = parseValue(item.value);
+        return (
+          <div
+            class:list={[
+              'text-center relative fade-on-scroll',
+              index < items.length - 1 && 'md:border-r md:border-neutral-content/10'
+            ]}
+            style={`animation-delay: ${(index + 1) * 100}ms`}
+          >
+            <div class="text-5xl md:text-6xl font-extrabold text-primary mb-2 tracking-tight">
+              {parsed ? (
+                <span>
+                  {parsed.prefix}<span class="count-up" data-target={parsed.number}>0</span>{parsed.suffix}
+                </span>
+              ) : (
+                item.value
+              )}
+            </div>
+            <div class="text-lg font-semibold text-neutral-content/90 mb-1">
+              {item.title}
+            </div>
+            {item.description && (
+              <div class="text-sm text-neutral-content/50">
+                {item.description}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<script>
+  const countEls = document.querySelectorAll<HTMLElement>('.count-up');
+  if (countEls.length > 0) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target as HTMLElement;
+        const target = parseInt(el.dataset.target || '0', 10);
+        if (target === 0) return;
+        observer.unobserve(el);
+
+        const duration = 1500;
+        const start = performance.now();
+
+        function tick(now: number) {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(eased * target).toLocaleString();
+          if (progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.3 });
+
+    countEls.forEach((el) => observer.observe(el));
+  }
+</script>

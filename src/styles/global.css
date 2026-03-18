@@ -104,6 +104,9 @@
   animation-play-state: paused;
 }
 
+/* Hide elements that will animate — only when JS is available */
+.js .fade-on-scroll { opacity: 0; }
+
 /* Staggered delays */
 .delay-100 { animation-delay: 100ms; }
 .delay-200 { animation-delay: 200ms; }
