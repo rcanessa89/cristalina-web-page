@@ -41,7 +41,7 @@ export default function Hero({
           }}
         />
         <div className="relative z-10 max-w-2xl mx-auto text-center text-white">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in-up">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 animate-fade-in-up tracking-tight">
             {title}
           </h2>
           {subtitle && (
@@ -51,7 +51,7 @@ export default function Hero({
           )}
           {cta && (
             <a
-              className="btn btn-lg bg-white text-secondary border-none hover:bg-base-200 shadow-xl shadow-black/20 px-8 animate-fade-in-up delay-300"
+              className="btn btn-lg bg-white text-secondary border-none hover:bg-white/90 shadow-xl shadow-black/20 px-8 font-bold animate-fade-in-up delay-300"
               href={cta.url}
             >
               {cta.linkText}
@@ -84,7 +84,7 @@ export default function Hero({
       />
       <div className="hero-content relative z-20 text-center text-white">
         <div className="max-w-3xl">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up tracking-tight">
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 animate-fade-in-up tracking-tight">
             {title}
           </h1>
           {subtitle && (
@@ -94,7 +94,7 @@ export default function Hero({
           )}
           {cta && (
             <a
-              className="btn btn-primary btn-lg shadow-lg shadow-primary/30 animate-fade-in-up delay-300"
+              className="btn btn-primary btn-lg shadow-lg shadow-primary/30 font-bold animate-fade-in-up delay-300"
               href={cta.url}
             >
               {cta.linkText}

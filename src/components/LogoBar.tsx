@@ -6,9 +6,9 @@ export default function LogoBar({ title, logos }: MappedLogoBar) {
   const tripled = [...logos, ...logos, ...logos];
 
   return (
-    <section className="py-16 px-4 bg-base-100">
+    <section className="py-16 px-4 bg-base-100 border-t border-base-300/50">
       {title && (
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-12 text-base-content/80">
+        <h2 className="text-2xl md:text-3xl font-extrabold text-center mb-12 tracking-tight text-base-content/80">
           {title}
         </h2>
       )}
@@ -21,7 +21,7 @@ export default function LogoBar({ title, logos }: MappedLogoBar) {
               key={`${logo.url}-${i}`}
               src={logo.url}
               alt={logo.title}
-              className="h-10 md:h-12 w-auto shrink-0 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+              className="h-10 md:h-12 w-auto shrink-0 object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
             />
           ))}
         </div>

@@ -23,7 +23,7 @@ export default function Footer({
       <div className="max-w-6xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           <div>
-            <p className="text-2xl font-bold mb-3">{companyName}</p>
+            <p className="text-2xl font-extrabold tracking-tight mb-3">{companyName}</p>
             {description && (
               <p className="text-neutral-content/60 leading-relaxed">{description}</p>
             )}

@@ -12,7 +12,7 @@ export default function Stats({ title, items }: MappedStats) {
       />
       <div className="relative z-10 max-w-4xl mx-auto">
         {title && (
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-14 tracking-tight">
             {title}
           </h2>
         )}
@@ -20,9 +20,11 @@ export default function Stats({ title, items }: MappedStats) {
           {items.map((item, index) => (
             <div
               key={item.id}
-              className={`text-center animate-fade-in-up delay-${(index + 1) * 100}`}
+              className={`text-center relative animate-fade-in-up delay-${(index + 1) * 100} ${
+                index < items.length - 1 ? 'md:border-r md:border-neutral-content/10' : ''
+              }`}
             >
-              <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
+              <div className="text-5xl md:text-6xl font-extrabold text-primary mb-2 tracking-tight">
                 {item.value}
               </div>
               <div className="text-lg font-semibold text-neutral-content/90 mb-1">
