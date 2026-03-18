@@ -31,10 +31,11 @@ export default function FeatureList({ title, items }: MappedFeatureList) {
         {items.map((feature, index) => (
           <div
             key={feature.id}
-            className={`group bg-base-100 rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-base-300/50 hover:border-primary/20 animate-fade-in-up delay-${(index % 3 + 1) * 100}`}
+            className="group bg-base-100 rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-base-300/50 hover:border-primary/20 animate-fade-in-up"
+            style={{ animationDelay: `${(index % 3 + 1) * 100}ms` }}
           >
             {feature.icon && (
-              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-[background-color] duration-300 ease-out">
+              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-[background-color] duration-300">
                 <LucideIcon name={feature.icon} size={28} strokeWidth={1.5} className="text-primary" />
               </div>
             )}
