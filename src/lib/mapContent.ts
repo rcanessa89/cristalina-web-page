@@ -119,6 +119,7 @@ export interface MappedProcessSteps {
   type: 'processSteps';
   title?: string;
   description?: string;
+  stepLabel?: string;
   items: MappedProcessStep[];
 }
 
@@ -335,6 +336,7 @@ function mapProcessSteps(entry: Entry): MappedProcessSteps {
     type: 'processSteps',
     title: fields.title,
     description: fields.description,
+    stepLabel: fields.stepLabel,
     items: Array.isArray(fields.items)
       ? fields.items.filter(isEntry).map(mapProcessStep)
       : []

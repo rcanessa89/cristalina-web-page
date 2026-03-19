@@ -5,7 +5,7 @@ import { slugify } from '../lib/utils';
 
 type Props = MappedProcessSteps;
 
-const { title, description, items } = Astro.props;
+const { title, description, stepLabel, items } = Astro.props;
 const sectionId = title ? slugify(title) : undefined;
 const sorted = [...items].sort((a, b) => a.stepNumber - b.stepNumber);
 ---
@@ -72,11 +72,13 @@ const sorted = [...items].sort((a, b) => a.stepNumber - b.stepNumber);
               </div>
               <div class="flex items-start justify-between gap-4">
                 <div class="min-w-0">
-                  <div class="flex items-center gap-3 mb-2">
-                    <span class="text-xs font-bold text-primary uppercase tracking-widest">
-                      Etapa {step.stepNumber}
-                    </span>
-                  </div>
+                  {stepLabel && (
+                    <div class="flex items-center gap-3 mb-2">
+                      <span class="text-xs font-bold text-primary uppercase tracking-widest">
+                        {stepLabel} {step.stepNumber}
+                      </span>
+                    </div>
+                  )}
                   <h3 class="text-lg md:text-xl font-bold mb-2">{step.title}</h3>
                   {step.description && (
                     <p class="text-base-content/60 leading-relaxed text-sm md:text-base">
