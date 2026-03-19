@@ -98,6 +98,8 @@ export type MappedComponent = MappedHero | MappedStats | MappedCardList | Mapped
 export interface MappedPage {
   title: string;
   slug: string;
+  metaDescription?: string;
+  ogImage?: MappedAsset;
   components: MappedComponent[];
 }
 
@@ -330,6 +332,8 @@ export function mapPage(fields: Record<string, any>): MappedPage {
   return {
     title: fields.title ?? '',
     slug: fields.slug ?? '',
+    metaDescription: fields.metaDescription,
+    ogImage: isAsset(fields.ogImage) ? mapAsset(fields.ogImage) : undefined,
     components: Array.isArray(content)
       ? (content.map(mapEntry).filter(Boolean) as MappedComponent[])
       : []

@@ -1,20 +1,122 @@
 ---
 import '../styles/global.css';
+import { SEO } from 'astro-seo';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 import { getNavigation, getFooter } from '../lib/contentful';
 import { mapNavigation, mapFooter } from '../lib/mapContent';
+import { getAlternateSlug, getDefaultDescription } from '../lib/seo';
 
 interface Props {
 	title?: string;
+	description?: string;
+	ogImage?: string;
+	slug?: string;
 }
 
-const { title = 'Cristalina' } = Astro.props;
+const { title = 'Cristalina', description, ogImage, slug = '' } = Astro.props;
 const locale = (Astro.currentLocale as 'es' | 'en') ?? 'es';
 const navData = await getNavigation(locale);
 const footerData = await getFooter(locale);
 const navigation = navData ? mapNavigation(navData) : { links: [] };
 const footer = footerData ? mapFooter(footerData) : null;
+
+// SEO
+const siteUrl = 'https://www.cristalinacr.com';
+const canonicalURL = new URL(Astro.url.pathname, siteUrl).toString();
+const metaDescription = description || getDefaultDescription(slug, locale);
+const isHome = slug === 'inicio' || slug === 'home';
+const fullTitle = isHome
+	? 'Cristalina | ' + (locale === 'es' ? 'Tratamiento de Agua en Costa Rica' : 'Water Treatment in Costa Rica')
+	: title && title !== 'Cristalina' ? title : slug.replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
+const defaultOgImage = `${siteUrl}/og-default.png`;
+const ogImageUrl = ogImage || defaultOgImage;
+
+// Hreflang alternates
+const altSlug = getAlternateSlug(slug, locale);
+const esUrl = `${siteUrl}/es/${locale === 'es' ? slug : altSlug}`;
+const enUrl = `${siteUrl}/en/${locale === 'en' ? slug : altSlug}`;
+
+// Structured Data - Organization
+const organizationSchema = JSON.stringify({
+	"@context": "https://schema.org",
+	"@type": "Organization",
+	"name": "Cristalina",
+	"url": siteUrl,
+	"logo": `${siteUrl}/favicon.svg`,
+	"contactPoint": {
+		"@type": "ContactPoint",
+		"telephone": "+(506) 8849-5919",
+		"contactType": "sales",
+		"areaServed": "CR",
+		"availableLanguage": ["Spanish", "English"]
+	},
+	"sameAs": ["https://www.facebook.com/Cristalina.Agua.Pura"]
+});
+
+// Structured Data - LocalBusiness (only on home)
+const localBusinessSchema = isHome ? JSON.stringify({
+	"@context": "https://schema.org",
+	"@type": "LocalBusiness",
+	"name": "Cristalina",
+	"description": locale === 'es'
+		? "Soluciones de tratamiento y purificacion de agua en Costa Rica"
+		: "Water treatment and purification solutions in Costa Rica",
+	"url": siteUrl,
+	"telephone": "+(506) 8849-5919",
+	"address": {
+		"@type": "PostalAddress",
+		"streetAddress": "50 E. del B.C.R. - Urb. Vizcaya No.87",
+		"addressLocality": "San Rafael Abajo de Desamparados",
+		"addressRegion": "San Jose",
+		"addressCountry": "CR"
+	},
+	"geo": {
+		"@type": "GeoCoordinates",
+		"latitude": 9.9,
+		"longitude": -84.05
+	},
+	"sameAs": ["https://www.facebook.com/Cristalina.Agua.Pura"],
+	"priceRange": "$$"
+}) : null;
+
+// Structured Data - BreadcrumbList
+const breadcrumbSchema = JSON.stringify({
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+		{
+			"@type": "ListItem",
+			"position": 1,
+			"name": locale === 'es' ? 'Inicio' : 'Home',
+			"item": `${siteUrl}/${locale}/${locale === 'es' ? 'inicio' : 'home'}`
+		},
+		...(isHome ? [] : [{
+			"@type": "ListItem",
+			"position": 2,
+			"name": title,
+			"item": canonicalURL
+		}])
+	]
+});
+
+// Structured Data - Product (product pages)
+const isProduct = slug === 'water-tec-premium' || slug === 'water-tec-pro';
+const productSchema = isProduct ? JSON.stringify({
+	"@context": "https://schema.org",
+	"@type": "Product",
+	"name": title,
+	"description": metaDescription,
+	"brand": {
+		"@type": "Brand",
+		"name": "Cristalina"
+	},
+	"category": locale === 'es' ? "Purificadores de Agua" : "Water Purifiers",
+	"manufacturer": {
+		"@type": "Organization",
+		"name": "Cristalina"
+	}
+}) : null;
 ---
 
 <!doctype html>
@@ -24,11 +126,59 @@ const footer = footerData ? mapFooter(footerData) : null;
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+		<link rel="preconnect" href="https://images.ctfassets.net" crossorigin />
+		<link rel="preload" href="/fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+		<link rel="preload" href="/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin />
+		<SEO
+			title={fullTitle}
+			titleTemplate={isHome ? undefined : "%s | Cristalina"}
+			description={metaDescription}
+			canonical={canonicalURL}
+			languageAlternates={[
+				{ href: esUrl, hrefLang: "es" },
+				{ href: enUrl, hrefLang: "en" },
+				{ href: esUrl, hrefLang: "x-default" }
+			]}
+			openGraph={{
+				basic: {
+					title: fullTitle,
+					type: isProduct ? "product" : "website",
+					image: ogImageUrl,
+					url: canonicalURL
+				},
+				optional: {
+					description: metaDescription,
+					locale: locale === 'es' ? 'es_CR' : 'en_US',
+					localeAlternate: [locale === 'es' ? 'en_US' : 'es_CR'],
+					siteName: "Cristalina"
+				},
+				image: {
+					alt: title,
+					width: 1200,
+					height: 630
+				}
+			}}
+			twitter={{
+				card: "summary_large_image",
+				title: fullTitle,
+				description: metaDescription,
+				image: ogImageUrl,
+				imageAlt: title
+			}}
+			extend={{
+				link: [
+					{ rel: "sitemap", href: "/sitemap-index.xml" }
+				],
+				meta: [
+					{ name: "theme-color", content: "#01a89e" },
+					{ name: "author", content: "Cristalina" }
+				]
+			}}
+		/>
+		<script is:inline type="application/ld+json" set:html={organizationSchema} />
+		<script is:inline type="application/ld+json" set:html={breadcrumbSchema} />
+		{localBusinessSchema && <script is:inline type="application/ld+json" set:html={localBusinessSchema} />}
+		{productSchema && <script is:inline type="application/ld+json" set:html={productSchema} />}
 		<script is:inline>document.documentElement.classList.add('js')</script>
 	</head>
 	<body class="font-jakarta">

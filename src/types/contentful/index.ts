@@ -10,3 +10,4 @@ export type { TypeLogoBar, TypeLogoBarFields, TypeLogoBarSkeleton } from "./Type
 export type { TypePage, TypePageFields, TypePageSkeleton } from "./TypePage";
 export type { TypeStat, TypeStatFields, TypeStatSkeleton } from "./TypeStat";
 export type { TypeStats, TypeStatsFields, TypeStatsSkeleton } from "./TypeStats";
+export type { TypeVersionTracking, TypeVersionTrackingFields, TypeVersionTrackingSkeleton } from "./TypeVersionTracking";

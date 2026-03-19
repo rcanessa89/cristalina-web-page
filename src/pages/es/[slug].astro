@@ -20,6 +20,11 @@ const data = await getPageContent(slug, 'es');
 const page = data ? mapPage(data) : null;
 ---
 
-<Layout title={page?.title}>
+<Layout
+  title={page?.title}
+  description={page?.metaDescription}
+  ogImage={page?.ogImage?.url}
+  slug={slug}
+>
   {page && <ComponentResolver components={page.components} />}
 </Layout>

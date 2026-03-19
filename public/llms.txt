@@ -1,0 +1,29 @@
+# Cristalina - Water Treatment Solutions
+
+> Cristalina is a water treatment company based in Costa Rica, specializing in premium water purification systems for homes and businesses.
+
+## Products
+
+- **Water-Tec Premium**: Advanced home water purification system with multi-stage filtration technology.
+- **Water-Tec Pro**: Commercial-grade water treatment solution designed for businesses and high-demand environments.
+
+## Services
+
+- Water quality assessment
+- Installation of purification systems
+- Maintenance and filter replacement
+- Technical support
+
+## Contact
+
+- Phone: +(506) 8849-5919
+- Address: 50 E. del B.C.R. - Urb. Vizcaya No.87, San Rafael Abajo de Desamparados, San Jose, Costa Rica
+- Website: https://www.cristalinacr.com
+- Facebook: https://www.facebook.com/Cristalina.Agua.Pura
+
+## Languages
+
+This website is available in Spanish (es) and English (en).
+
+- Spanish: https://www.cristalinacr.com/es/inicio
+- English: https://www.cristalinacr.com/en/home
