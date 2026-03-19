@@ -65,13 +65,33 @@ const hasContact = email || phone || address;
             Links
           </h6>
           <ul class="space-y-3">
-            {links.map((link) => (
-              <li>
-                <a href={link.url} class="text-neutral-content/70 hover:text-primary transition-colors">
-                  {link.linkText}
-                </a>
-              </li>
-            ))}
+            {links.map((link) =>
+              link.children && link.children.length > 0 ? (
+                <li>
+                  <details class="footer-dropdown group">
+                    <summary class="flex items-center gap-1 text-neutral-content/70 hover:text-primary transition-colors cursor-pointer select-none list-none">
+                      {link.linkText}
+                      <LucideIcon name="ChevronDown" size={14} class="transition-transform duration-200 group-open:rotate-180" />
+                    </summary>
+                    <ul class="mt-2 ml-4 space-y-2">
+                      {link.children.map((child) => (
+                        <li>
+                          <a href={child.url} class="text-neutral-content/60 hover:text-primary transition-colors text-sm">
+                            {child.linkText}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                </li>
+              ) : (
+                <li>
+                  <a href={link.url} class="text-neutral-content/70 hover:text-primary transition-colors">
+                    {link.linkText}
+                  </a>
+                </li>
+              )
+            )}
           </ul>
         </div>
       )}
