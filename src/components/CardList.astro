@@ -38,7 +38,7 @@ const sectionId = title ? slugify(title) : undefined;
             ]}>
               <Image
                 src={card.image.url}
-                alt={card.image.title || card.title}
+                alt={card.image.description || card.image.title || card.title}
                 inferSize
                 class="h-56 md:h-72 object-contain group-hover:scale-105 transition-transform duration-500"
               />
@@ -78,7 +78,7 @@ const sectionId = title ? slugify(title) : undefined;
             <div class="md:w-1/2 flex justify-center">
               <Image
                 src={card.image.url}
-                alt={card.image.title || card.title}
+                alt={card.image.description || card.image.title || card.title}
                 inferSize
                 class="h-96 object-contain group-hover:scale-105 transition-transform duration-500"
               />

@@ -79,7 +79,7 @@ const rightCol = items.slice(half);
             <figure class="mb-5 flex justify-start">
               <Image
                 src={feature.image.url}
-                alt={feature.image.title || feature.title}
+                alt={feature.image.description || feature.image.title || feature.title}
                 width={56}
                 height={56}
                 class="w-14 h-14 object-contain"

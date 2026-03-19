@@ -5,6 +5,7 @@ import type { Entry, Asset } from 'contentful';
 export interface MappedAsset {
   url: string;
   title: string;
+  description?: string;
   width?: number;
   height?: number;
   contentType?: string;
@@ -178,6 +179,7 @@ function mapAsset(asset: Asset): MappedAsset {
   return {
     url: file?.url ? `https:${file.url}` : '',
     title: (asset.fields?.title as string) ?? '',
+    description: (asset.fields?.description as string) ?? undefined,
     width: details?.width,
     height: details?.height,
     contentType: file?.contentType
