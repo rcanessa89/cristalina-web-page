@@ -13,7 +13,7 @@ const altLocale = locale === 'es' ? 'en' : 'es';
 const altLabel = locale === 'es' ? 'EN' : 'ES';
 const altHref = locale === 'es' ? '/en/home' : '/es/inicio';
 
-const linkClass = "relative hover:text-white transition-colors hover:bg-transparent after:absolute after:bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-primary after:rounded-full after:transition-all hover:after:w-4/5";
+const currentPath = Astro.url.pathname;
 ---
 
 <nav class="navbar bg-secondary/95 backdrop-blur-sm text-secondary-content shadow-lg sticky top-0 z-50 border-b border-white/5 px-4 md:px-8">
@@ -52,35 +52,71 @@ const linkClass = "relative hover:text-white transition-colors hover:bg-transpar
         </li>
       </ul>
     </div>
-    <a class="btn btn-ghost text-xl font-extrabold tracking-tight" href={homeHref}>
+    <a class="text-2xl font-extrabold tracking-tight hover:opacity-90 transition-opacity" href={homeHref}>
       Cristalina
     </a>
   </div>
   <div class="navbar-end hidden lg:flex items-center gap-1">
-    <ul class="menu menu-horizontal px-1 text-white/70">
-      {links.map((link) =>
-        link.children ? (
-          <li>
-            <details>
-              <summary class="hover:text-white transition-colors hover:bg-transparent">{link.linkText}</summary>
-              <ul class="bg-base-100 text-base-content rounded-t-none p-2 z-99 shadow-lg w-max">
+    <ul class="flex items-center gap-0.5">
+      {links.map((link) => {
+        const isActive = link.url ? currentPath.startsWith(link.url) : false;
+        const hasActiveChild = link.children?.some((child) => child.url && currentPath.startsWith(child.url));
+        const active = isActive || hasActiveChild;
+        return link.children ? (
+          <li class="relative list-none">
+            <details class="group">
+              <summary class:list={[
+                'flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-semibold uppercase tracking-widest cursor-pointer transition-all duration-200 select-none',
+                active
+                  ? 'text-white bg-white/10'
+                  : 'text-white/70 hover:text-white hover:bg-white/5'
+              ]}>
+                {link.linkText}
+              </summary>
+              <ul class="absolute top-full right-0 mt-2 bg-base-100 text-base-content rounded-lg p-2 z-99 shadow-xl w-max min-w-48 border border-base-300/50">
                 {link.children.map((child) => (
-                  <li><a href={child.url}>{child.linkText}</a></li>
+                  <li class="list-none">
+                    <a
+                      href={child.url}
+                      class:list={[
+                        'block px-4 py-2.5 rounded-md text-sm transition-colors',
+                        child.url && currentPath.startsWith(child.url)
+                          ? 'bg-primary/10 text-primary font-medium'
+                          : 'hover:bg-base-200'
+                      ]}
+                    >
+                      {child.linkText}
+                    </a>
+                  </li>
                 ))}
               </ul>
             </details>
           </li>
         ) : (
-          <li>
-            <a href={link.url} class={linkClass}>{link.linkText}</a>
+          <li class="list-none">
+            <a
+              href={link.url}
+              class:list={[
+                'relative px-3 py-2 rounded-lg text-xs font-semibold uppercase tracking-widest transition-all duration-200',
+                active
+                  ? 'text-white bg-white/10'
+                  : 'text-white/70 hover:text-white hover:bg-white/5'
+              ]}
+            >
+              {link.linkText}
+              {active && (
+                <span class="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary" />
+              )}
+            </a>
           </li>
-        )
-      )}
+        );
+      })}
     </ul>
+    <div class="w-px h-5 bg-white/15 mx-3" />
     <a
       href={altHref}
       lang={altLocale}
-      class="flex items-center gap-1.5 text-sm text-white/50 hover:text-white transition-colors ml-3 px-3 py-1.5 rounded-full border border-white/15 hover:border-white/30"
+      class="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-white/50 hover:text-white transition-colors px-3 py-1.5 rounded-full border border-white/15 hover:border-white/30"
     >
       <LucideIcon name="Globe" size={14} />
       {altLabel}

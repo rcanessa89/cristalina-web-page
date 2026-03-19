@@ -10,45 +10,56 @@ const isFew = items.length <= 3;
 const sectionId = title ? slugify(title) : undefined;
 ---
 
-<section id={sectionId} class="py-20 px-4 bg-base-100">
+<section id={sectionId} class="py-16 md:py-24 px-4 bg-gradient-to-b from-base-100 via-base-100 to-base-200 relative overflow-hidden">
+  <div class="bg-dots absolute inset-0" />
   {title && (
-    <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-16 tracking-tight">
+    <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-16 tracking-tight relative z-10">
       {title}
     </h2>
   )}
   {isFew ? (
-    <div class:list={['grid grid-cols-1 max-w-5xl mx-auto', items.length === 1 ? 'max-w-lg' : 'md:grid-cols-2']}>
+    <div class="max-w-5xl mx-auto space-y-8 relative z-10">
       {items.map((card, index) => (
         <div
           class:list={[
-            'group flex flex-col items-center text-center px-8 py-10 fade-on-scroll',
-            index < items.length - 1 && 'md:border-r md:border-base-300/50'
+            'group bg-base-100 rounded-3xl border border-base-300/60 shadow-sm hover:shadow-2xl transition-all duration-500 fade-on-scroll overflow-hidden',
+            'flex flex-col md:flex-row',
+            index % 2 !== 0 && 'md:flex-row-reverse'
           ]}
           style={`animation-delay: ${(index + 1) * 150}ms`}
         >
           {card.image && (
-            <div class="relative mb-8">
+            <div class:list={[
+              'md:w-5/12 flex items-center justify-center p-8 md:p-10',
+              index % 2 === 0
+                ? 'bg-gradient-to-br from-base-200/60 to-primary/5'
+                : 'bg-gradient-to-bl from-base-200/60 to-secondary/5'
+            ]}>
               <img
                 src={card.image.url}
                 alt={card.image.title}
-                class="h-72 md:h-80 object-contain group-hover:scale-105 transition-transform duration-500"
+                class="h-56 md:h-72 object-contain group-hover:scale-105 transition-transform duration-500"
               />
             </div>
           )}
-          <h3 class="text-2xl font-extrabold mb-3 text-secondary tracking-tight">
-            {card.title}
-          </h3>
-          {card.description && (
-            <p class="text-base-content/60 mb-6 leading-relaxed max-w-sm">
-              {card.description}
-            </p>
-          )}
-          {card.cta && (
-            <a class="btn btn-primary group/btn mt-auto" href={card.cta.url}>
-              {card.cta.linkText}
-              <LucideIcon name="ArrowRight" size={16} class="group-hover/btn:translate-x-1 transition-transform" />
-            </a>
-          )}
+          <div class="md:w-7/12 flex flex-col justify-center p-8 md:p-12">
+            <h3 class="text-2xl md:text-3xl font-extrabold mb-3 text-secondary tracking-tight">
+              {card.title}
+            </h3>
+            {card.description && (
+              <p class="text-base-content/70 mb-8 leading-relaxed text-base">
+                {card.description}
+              </p>
+            )}
+            {card.cta && (
+              <div>
+                <a class="btn btn-primary btn-lg group/btn shadow-md shadow-primary/20" href={card.cta.url}>
+                  {card.cta.linkText}
+                  <LucideIcon name="ArrowRight" size={16} class="group-hover/btn:translate-x-1 transition-transform" />
+                </a>
+              </div>
+            )}
+          </div>
         </div>
       ))}
     </div>

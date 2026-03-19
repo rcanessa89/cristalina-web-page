@@ -2,6 +2,7 @@
 
 @theme {
   --font-jakarta: 'Plus Jakarta Sans', sans-serif;
+  --font-outfit: 'Outfit', sans-serif;
 }
 @plugin "daisyui" {
   themes: cristalina --default;
@@ -102,6 +103,52 @@
 
 .animate-marquee:hover {
   animation-play-state: paused;
+}
+
+/* Display font for all headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-outfit);
+}
+
+/* Subtle dot pattern for flat sections */
+.bg-dots {
+  background-image: radial-gradient(circle, #01a89e 0.6px, transparent 0.6px);
+  background-size: 24px 24px;
+  opacity: 0.04;
+}
+
+/* Section wave separators */
+.section-wave-top {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: var(--color-base-100);
+  clip-path: ellipse(55% 100% at 50% 0%);
+  z-index: 5;
+}
+
+.section-wave-bottom {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: var(--color-base-100);
+  clip-path: ellipse(55% 100% at 50% 100%);
+  z-index: 5;
+}
+
+.section-wave-bottom-dark {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: var(--color-neutral);
+  clip-path: ellipse(55% 100% at 50% 100%);
+  z-index: 5;
 }
 
 /* Hide elements that will animate — only when JS is available */
