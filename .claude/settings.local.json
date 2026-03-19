@@ -8,7 +8,10 @@
       "Bash(bun run:*)",
       "Bash(bun:*)",
       "mcp__plugin_chrome-devtools-mcp_chrome-devtools__resize_page",
-      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__take_snapshot"
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__take_snapshot",
+      "WebFetch(domain:www.cristalinacr.com)",
+      "Bash(npx astro:*)",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__list_pages"
     ]
   }
 }

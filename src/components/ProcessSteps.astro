@@ -1,0 +1,106 @@
+---
+import type { MappedProcessSteps } from '../lib/mapContent';
+import LucideIcon from './icons/LucideIcon.astro';
+import { slugify } from '../lib/utils';
+
+type Props = MappedProcessSteps;
+
+const { title, description, items } = Astro.props;
+const sectionId = title ? slugify(title) : undefined;
+const sorted = [...items].sort((a, b) => a.stepNumber - b.stepNumber);
+---
+
+<section id={sectionId} class="py-16 md:py-24 px-4 bg-base-100 relative overflow-hidden">
+  <div
+    class="absolute inset-0 opacity-[0.03]"
+    style="background-image: radial-gradient(circle at 30% 20%, #01a89e 0%, transparent 50%), radial-gradient(circle at 70% 80%, #004a59 0%, transparent 50%)"
+  />
+  <div class="max-w-4xl mx-auto relative z-10">
+    {title && (
+      <div class="text-center mb-6">
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">
+          {title}
+        </h2>
+      </div>
+    )}
+    {description && (
+      <p class="text-center text-base-content/60 text-lg max-w-2xl mx-auto mb-16 fade-on-scroll">
+        {description}
+      </p>
+    )}
+
+    <div class="relative">
+      {/* Vertical timeline line */}
+      <div class="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-primary/40 via-primary/20 to-transparent hidden sm:block" />
+
+      <div class="flex flex-col gap-8 md:gap-10">
+        {sorted.map((step, index) => (
+          <div
+            class="group relative flex gap-5 md:gap-8 fade-on-scroll"
+            style={`animation-delay: ${(index + 1) * 120}ms`}
+          >
+            {/* Step number circle */}
+            <div class="flex-shrink-0 relative z-10">
+              <div class="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-primary/10 border-2 border-primary/20 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-300 shadow-sm">
+                {step.icon ? (
+                  <Fragment>
+                    <LucideIcon
+                      name={step.icon}
+                      size={24}
+                      strokeWidth={1.5}
+                      class="text-primary group-hover:text-white transition-colors duration-300 hidden md:block"
+                    />
+                    <LucideIcon
+                      name={step.icon}
+                      size={20}
+                      strokeWidth={1.5}
+                      class="text-primary group-hover:text-white transition-colors duration-300 md:hidden"
+                    />
+                  </Fragment>
+                ) : (
+                  <span class="text-lg md:text-xl font-extrabold text-primary group-hover:text-white transition-colors duration-300">
+                    {step.stepNumber}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {/* Content card */}
+            <div class="flex-1 bg-base-200/40 rounded-2xl p-6 md:p-8 border border-base-300/30 group-hover:border-primary/20 group-hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+              <div class="absolute top-4 right-5 text-5xl font-black text-base-content/[0.03] select-none leading-none">
+                {String(step.stepNumber).padStart(2, '0')}
+              </div>
+              <div class="flex items-start justify-between gap-4">
+                <div class="min-w-0">
+                  <div class="flex items-center gap-3 mb-2">
+                    <span class="text-xs font-bold text-primary uppercase tracking-widest">
+                      Etapa {step.stepNumber}
+                    </span>
+                  </div>
+                  <h3 class="text-lg md:text-xl font-bold mb-2">{step.title}</h3>
+                  {step.description && (
+                    <p class="text-base-content/60 leading-relaxed text-sm md:text-base">
+                      {step.description}
+                    </p>
+                  )}
+                </div>
+              </div>
+              {step.detail && (
+                <div class="mt-4 pt-4 border-t border-base-300/40">
+                  <div class="flex flex-wrap gap-2">
+                    {step.detail.split(',').map((spec: string) => (
+                      <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/8 text-primary text-xs font-semibold tracking-wide">
+                        <LucideIcon name="Gauge" size={13} strokeWidth={2} class="text-primary/70" />
+                        {spec.trim()}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

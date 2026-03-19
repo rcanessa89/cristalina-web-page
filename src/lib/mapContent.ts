@@ -104,6 +104,24 @@ export interface MappedCtaBanner {
   backgroundImage?: MappedAsset;
 }
 
+export interface MappedProcessStep {
+  id: string;
+  type: 'processStep';
+  stepNumber: number;
+  title: string;
+  description?: string;
+  detail?: string;
+  icon?: string;
+}
+
+export interface MappedProcessSteps {
+  id: string;
+  type: 'processSteps';
+  title?: string;
+  description?: string;
+  items: MappedProcessStep[];
+}
+
 export interface MappedLogoBar {
   id: string;
   type: 'logoBar';
@@ -111,7 +129,7 @@ export interface MappedLogoBar {
   logos: MappedAsset[];
 }
 
-export type MappedComponent = MappedHero | MappedStats | MappedCardList | MappedFeatureList | MappedProductSpecs | MappedCtaBanner | MappedLogoBar;
+export type MappedComponent = MappedHero | MappedStats | MappedCardList | MappedFeatureList | MappedProductSpecs | MappedCtaBanner | MappedProcessSteps | MappedLogoBar;
 
 export interface MappedPage {
   title: string;
@@ -297,6 +315,32 @@ function mapCtaBanner(entry: Entry): MappedCtaBanner {
   };
 }
 
+function mapProcessStep(entry: Entry): MappedProcessStep {
+  const fields = entry.fields as Record<string, any>;
+  return {
+    id: entry.sys.id,
+    type: 'processStep',
+    stepNumber: fields.stepNumber ?? 0,
+    title: fields.title ?? '',
+    description: fields.description,
+    detail: fields.detail,
+    icon: fields.icon
+  };
+}
+
+function mapProcessSteps(entry: Entry): MappedProcessSteps {
+  const fields = entry.fields as Record<string, any>;
+  return {
+    id: entry.sys.id,
+    type: 'processSteps',
+    title: fields.title,
+    description: fields.description,
+    items: Array.isArray(fields.items)
+      ? fields.items.filter(isEntry).map(mapProcessStep)
+      : []
+  };
+}
+
 function mapLogoBar(entry: Entry): MappedLogoBar {
   const fields = entry.fields as Record<string, any>;
   return {
@@ -316,6 +360,7 @@ const mappers: Record<string, (entry: Entry) => MappedComponent> = {
   featuredList: mapFeatureList,
   productSpecs: mapProductSpecs,
   ctaBanner: mapCtaBanner,
+  processSteps: mapProcessSteps,
   logoBar: mapLogoBar
 };
 

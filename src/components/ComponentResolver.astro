@@ -6,6 +6,7 @@ import CardList from './CardList.astro';
 import FeatureList from './FeatureList.astro';
 import ProductSpecs from './ProductSpecs.astro';
 import CtaBanner from './CtaBanner.astro';
+import ProcessSteps from './ProcessSteps.astro';
 import LogoBar from './LogoBar.astro';
 
 interface Props {
@@ -22,6 +23,7 @@ const { components } = Astro.props;
   component.type === 'featuredList' ? <FeatureList {...component} /> :
   component.type === 'productSpecs' ? <ProductSpecs {...component} /> :
   component.type === 'ctaBanner' ? <CtaBanner {...component} /> :
+  component.type === 'processSteps' ? <ProcessSteps {...component} /> :
   component.type === 'logoBar' ? <LogoBar {...component} /> :
   null
 ))}
