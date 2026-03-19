@@ -19,17 +19,13 @@ export function getStaticPaths() {
 const { slug } = Astro.params;
 const data = await getPageContent(slug, 'en');
 const page = data ? mapPage(data) : null;
-
-if (!page) {
-  return Astro.redirect('/404');
-}
 ---
 
 <Layout
-  title={page.title}
-  description={page.metaDescription}
-  ogImage={page.ogImage?.url}
+  title={page?.title}
+  description={page?.metaDescription}
+  ogImage={page?.ogImage?.url}
   slug={slug}
 >
-  <ComponentResolver components={page.components} locale="en" />
+  {page && <ComponentResolver components={page.components} locale="en" />}
 </Layout>

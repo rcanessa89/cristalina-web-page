@@ -2,6 +2,17 @@
   command = "bun run build"
   publish = "dist"
 
+[[redirects]]
+  from = "/"
+  to = "/en/home"
+  status = 302
+  conditions = {Language = ["en"]}
+
+[[redirects]]
+  from = "/"
+  to = "/es/inicio"
+  status = 302
+
 [[headers]]
   for = "/*"
   [headers.values]
