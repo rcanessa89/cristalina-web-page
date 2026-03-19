@@ -5,6 +5,7 @@ const slugMap: Record<string, Record<string, string>> = {
     'water-tec-premium': 'water-tec-premium',
     'water-tec-pro': 'water-tec-pro',
     'como-funciona': 'how-it-works',
+    mantenimiento: 'maintenance',
     nosotros: 'about-us',
     contacto: 'contact'
   },
@@ -13,6 +14,7 @@ const slugMap: Record<string, Record<string, string>> = {
     'water-tec-premium': 'water-tec-premium',
     'water-tec-pro': 'water-tec-pro',
     'how-it-works': 'como-funciona',
+    maintenance: 'mantenimiento',
     'about-us': 'nosotros',
     contact: 'contacto'
   }
@@ -36,6 +38,8 @@ const defaultDescriptions: Record<string, Record<string, string>> = {
       'Water-Tec Pro: solucion de tratamiento de agua de grado comercial para empresas y entornos de alta demanda.',
     'como-funciona':
       'Descubra como funcionan nuestros sistemas de purificacion de agua Water-Tec con tecnologia avanzada de filtracion.',
+    mantenimiento:
+      'Servicio profesional de mantenimiento para sistemas Water-Tec. Limpieza, desinfeccion y cambio de filtros con productos biodegradables.',
     nosotros:
       'Conozca Cristalina, empresa costarricense dedicada al tratamiento y purificacion de agua desde San Jose, Costa Rica.',
     contacto:
@@ -49,6 +53,8 @@ const defaultDescriptions: Record<string, Record<string, string>> = {
       'Water-Tec Pro: commercial-grade water treatment solution for businesses and high-demand environments.',
     'how-it-works':
       'Discover how our Water-Tec water purification systems work with advanced filtration technology.',
+    maintenance:
+      'Professional maintenance service for Water-Tec systems. Cleaning, disinfection, and filter replacement with biodegradable products.',
     'about-us':
       'Learn about Cristalina, a Costa Rican company dedicated to water treatment and purification from San Jose, Costa Rica.',
     contact:

@@ -117,6 +117,126 @@ const productSchema = isProduct ? JSON.stringify({
 		"name": "Cristalina"
 	}
 }) : null;
+
+// Structured Data - WebSite (home only — enables sitelinks searchbox)
+const webSiteSchema = isHome ? JSON.stringify({
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	"name": "Cristalina",
+	"url": siteUrl,
+	"inLanguage": ["es", "en"],
+	"description": locale === 'es'
+		? "Soluciones de tratamiento y purificación de agua en Costa Rica"
+		: "Water treatment and purification solutions in Costa Rica"
+}) : null;
+
+// Structured Data - AboutPage
+const isAbout = slug === 'nosotros' || slug === 'about-us';
+const aboutPageSchema = isAbout ? JSON.stringify({
+	"@context": "https://schema.org",
+	"@type": "AboutPage",
+	"name": title,
+	"description": metaDescription,
+	"url": canonicalURL,
+	"mainEntity": {
+		"@type": "Organization",
+		"name": "Cristalina",
+		"url": siteUrl,
+		"foundingDate": "2019",
+		"foundingLocation": {
+			"@type": "Place",
+			"name": "San José, Costa Rica"
+		},
+		"areaServed": {
+			"@type": "Country",
+			"name": "Costa Rica"
+		},
+		"knowsAbout": [
+			"Water Purification",
+			"Ultrafiltration",
+			"Water Treatment"
+		]
+	}
+}) : null;
+
+// Structured Data - ContactPage
+const isContact = slug === 'contacto' || slug === 'contact';
+const contactPageSchema = isContact ? JSON.stringify({
+	"@context": "https://schema.org",
+	"@type": "ContactPage",
+	"name": title,
+	"description": metaDescription,
+	"url": canonicalURL,
+	"mainEntity": {
+		"@type": "Organization",
+		"name": "Cristalina",
+		"email": "info@cristalinacr.com",
+		"telephone": "+(506) 8849-5919",
+		"address": {
+			"@type": "PostalAddress",
+			"addressLocality": "San Rafael Abajo de Desamparados",
+			"addressRegion": "San José",
+			"addressCountry": "CR"
+		},
+		"openingHoursSpecification": {
+			"@type": "OpeningHoursSpecification",
+			"dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+			"opens": "08:00",
+			"closes": "17:00"
+		}
+	}
+}) : null;
+
+// Structured Data - HowTo (como-funciona / how-it-works)
+const isHowItWorks = slug === 'como-funciona' || slug === 'how-it-works';
+const howToSchema = isHowItWorks ? JSON.stringify({
+	"@context": "https://schema.org",
+	"@type": "HowTo",
+	"name": locale === 'es' ? "Proceso de Filtración de Agua en 5 Etapas" : "5-Stage Water Filtration Process",
+	"description": metaDescription,
+	"step": [
+		{
+			"@type": "HowToStep",
+			"position": 1,
+			"name": locale === 'es' ? "Filtración de Sedimentos" : "Sediment Filtration",
+			"text": locale === 'es'
+				? "Filtración a 1 micra que elimina partículas sólidas como arena, óxido y sedimentos."
+				: "1-micron filtration that removes solid particles like sand, rust, and sediments."
+		},
+		{
+			"@type": "HowToStep",
+			"position": 2,
+			"name": locale === 'es' ? "Pre-Carbón Activado" : "Pre-Activated Carbon",
+			"text": locale === 'es'
+				? "Filtración a 0.5 micras que elimina antibióticos, cloro e ingredientes carcinógenos."
+				: "0.5-micron filtration that removes antibiotics, chlorine, and carcinogenic ingredients."
+		},
+		{
+			"@type": "HowToStep",
+			"position": 3,
+			"name": locale === 'es' ? "Eliminación de Metales Pesados" : "Heavy Metal Removal",
+			"text": locale === 'es'
+				? "Elimina metales pesados y compuestos orgánicos que causan decoloración y olores."
+				: "Removes heavy metals and organic compounds that cause discoloration and odors."
+		},
+		{
+			"@type": "HowToStep",
+			"position": 4,
+			"name": locale === 'es' ? "Ultrafiltración" : "Ultrafiltration",
+			"text": locale === 'es'
+				? "Membrana semi-permeable que filtra a 0.01 micras, permitiendo solo agua limpia y minerales."
+				: "Semi-permeable membrane filtering at 0.01 microns, allowing only clean water and minerals."
+		},
+		{
+			"@type": "HowToStep",
+			"position": 5,
+			"name": locale === 'es' ? "Post-Carbón GAC" : "Post-Carbon GAC",
+			"text": locale === 'es'
+				? "Filtro final de carbón activado granular que elimina olores y sabores residuales."
+				: "Final granular activated carbon filter that removes residual odors and tastes."
+		}
+	]
+}) : null;
 ---
 
 <!doctype html>
@@ -178,7 +298,11 @@ const productSchema = isProduct ? JSON.stringify({
 		<script is:inline type="application/ld+json" set:html={organizationSchema} />
 		<script is:inline type="application/ld+json" set:html={breadcrumbSchema} />
 		{localBusinessSchema && <script is:inline type="application/ld+json" set:html={localBusinessSchema} />}
+		{webSiteSchema && <script is:inline type="application/ld+json" set:html={webSiteSchema} />}
 		{productSchema && <script is:inline type="application/ld+json" set:html={productSchema} />}
+		{aboutPageSchema && <script is:inline type="application/ld+json" set:html={aboutPageSchema} />}
+		{contactPageSchema && <script is:inline type="application/ld+json" set:html={contactPageSchema} />}
+		{howToSchema && <script is:inline type="application/ld+json" set:html={howToSchema} />}
 		<script is:inline>document.documentElement.classList.add('js')</script>
 	</head>
 	<body class="font-jakarta">
