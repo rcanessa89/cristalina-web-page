@@ -74,7 +74,25 @@ export interface MappedFeatureList {
   id: string;
   type: 'featuredList';
   title?: string;
+  variant?: 'default' | 'compact';
   items: MappedFeature[];
+}
+
+export interface MappedSpec {
+  id: string;
+  type: 'spec';
+  label: string;
+  value: string;
+  icon?: string;
+}
+
+export interface MappedProductSpecs {
+  id: string;
+  type: 'productSpecs';
+  title?: string;
+  description?: string;
+  image?: MappedAsset;
+  items: MappedSpec[];
 }
 
 export interface MappedCtaBanner {
@@ -93,7 +111,7 @@ export interface MappedLogoBar {
   logos: MappedAsset[];
 }
 
-export type MappedComponent = MappedHero | MappedStats | MappedCardList | MappedFeatureList | MappedCtaBanner | MappedLogoBar;
+export type MappedComponent = MappedHero | MappedStats | MappedCardList | MappedFeatureList | MappedProductSpecs | MappedCtaBanner | MappedLogoBar;
 
 export interface MappedPage {
   title: string;
@@ -233,8 +251,34 @@ function mapFeatureList(entry: Entry): MappedFeatureList {
     id: entry.sys.id,
     type: 'featuredList',
     title: fields.title,
+    variant: fields.variant ?? 'default',
     items: Array.isArray(fields.items)
       ? fields.items.filter(isEntry).map(mapFeature)
+      : []
+  };
+}
+
+function mapSpec(entry: Entry): MappedSpec {
+  const fields = entry.fields as Record<string, any>;
+  return {
+    id: entry.sys.id,
+    type: 'spec',
+    label: fields.label ?? '',
+    value: fields.value ?? '',
+    icon: fields.icon
+  };
+}
+
+function mapProductSpecs(entry: Entry): MappedProductSpecs {
+  const fields = entry.fields as Record<string, any>;
+  return {
+    id: entry.sys.id,
+    type: 'productSpecs',
+    title: fields.title,
+    description: fields.description,
+    image: isAsset(fields.image) ? mapAsset(fields.image) : undefined,
+    items: Array.isArray(fields.items)
+      ? fields.items.filter(isEntry).map(mapSpec)
       : []
   };
 }
@@ -270,6 +314,7 @@ const mappers: Record<string, (entry: Entry) => MappedComponent> = {
   stats: mapStats,
   cardList: mapCardList,
   featuredList: mapFeatureList,
+  productSpecs: mapProductSpecs,
   ctaBanner: mapCtaBanner,
   logoBar: mapLogoBar
 };

@@ -1,8 +1,10 @@
 import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
 import type { TypeCardListSkeleton } from "./TypeCardList";
+import type { TypeCtaBannerSkeleton } from "./TypeCtaBanner";
 import type { TypeFeaturedListSkeleton } from "./TypeFeaturedList";
 import type { TypeHeroComponentSkeleton } from "./TypeHeroComponent";
 import type { TypeLogoBarSkeleton } from "./TypeLogoBar";
+import type { TypeProductSpecsSkeleton } from "./TypeProductSpecs";
 import type { TypeStatsSkeleton } from "./TypeStats";
 
 /**
@@ -25,11 +27,23 @@ export interface TypePageFields {
      */
     slug: EntryFieldTypes.Symbol;
     /**
+     * Field type definition for field 'metaDescription' (Meta Description)
+     * @name Meta Description
+     * @localized true
+     */
+    metaDescription?: EntryFieldTypes.Symbol;
+    /**
+     * Field type definition for field 'ogImage' (OG Image)
+     * @name OG Image
+     * @localized false
+     */
+    ogImage?: EntryFieldTypes.AssetLink;
+    /**
      * Field type definition for field 'content' (Content)
      * @name Content
      * @localized false
      */
-    content: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeCardListSkeleton | TypeFeaturedListSkeleton | TypeHeroComponentSkeleton | TypeLogoBarSkeleton | TypeStatsSkeleton>>;
+    content: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeCardListSkeleton | TypeCtaBannerSkeleton | TypeFeaturedListSkeleton | TypeHeroComponentSkeleton | TypeLogoBarSkeleton | TypeProductSpecsSkeleton | TypeStatsSkeleton>>;
 }
 
 /**
@@ -37,7 +51,7 @@ export interface TypePageFields {
  * @name TypePageSkeleton
  * @type {TypePageSkeleton}
  * @since 2026-03-14T08:38:57.905Z
- * @version 17
+ * @version 21
  */
 export type TypePageSkeleton = EntrySkeletonType<TypePageFields, "page">;
 /**
@@ -45,6 +59,6 @@ export type TypePageSkeleton = EntrySkeletonType<TypePageFields, "page">;
  * @name TypePage
  * @type {TypePage}
  * @since 2026-03-14T08:38:57.905Z
- * @version 17
+ * @version 21
  */
 export type TypePage<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypePageSkeleton, Modifiers, Locales>;

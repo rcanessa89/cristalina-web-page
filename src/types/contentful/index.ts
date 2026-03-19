@@ -1,5 +1,6 @@
 export type { TypeCard, TypeCardFields, TypeCardSkeleton } from "./TypeCard";
 export type { TypeCardList, TypeCardListFields, TypeCardListSkeleton } from "./TypeCardList";
+export type { TypeCtaBanner, TypeCtaBannerFields, TypeCtaBannerSkeleton } from "./TypeCtaBanner";
 export type { TypeFeature, TypeFeatureFields, TypeFeatureSkeleton } from "./TypeFeature";
 export type { TypeFeaturedList, TypeFeaturedListFields, TypeFeaturedListSkeleton } from "./TypeFeaturedList";
 export type { TypeFooterLayout, TypeFooterLayoutFields, TypeFooterLayoutSkeleton } from "./TypeFooterLayout";
@@ -8,6 +9,8 @@ export type { TypeLayoutNavigation, TypeLayoutNavigationFields, TypeLayoutNaviga
 export type { TypeLink, TypeLinkFields, TypeLinkSkeleton } from "./TypeLink";
 export type { TypeLogoBar, TypeLogoBarFields, TypeLogoBarSkeleton } from "./TypeLogoBar";
 export type { TypePage, TypePageFields, TypePageSkeleton } from "./TypePage";
+export type { TypeProductSpecs, TypeProductSpecsFields, TypeProductSpecsSkeleton } from "./TypeProductSpecs";
+export type { TypeSpec, TypeSpecFields, TypeSpecSkeleton } from "./TypeSpec";
 export type { TypeStat, TypeStatFields, TypeStatSkeleton } from "./TypeStat";
 export type { TypeStats, TypeStatsFields, TypeStatsSkeleton } from "./TypeStats";
 export type { TypeVersionTracking, TypeVersionTrackingFields, TypeVersionTrackingSkeleton } from "./TypeVersionTracking";

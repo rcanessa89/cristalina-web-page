@@ -23,18 +23,18 @@ function parseValue(value: string) {
         {title}
       </h2>
     )}
-    <div class="grid grid-cols-3 gap-4 md:gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-4 md:gap-8">
       {items.map((item, index) => {
         const parsed = parseValue(item.value);
         return (
           <div
             class:list={[
               'text-center relative fade-on-scroll',
-              index < items.length - 1 && 'border-r border-neutral-content/10'
+              index < items.length - 1 && 'sm:border-r sm:border-neutral-content/10 border-b sm:border-b-0 border-neutral-content/10 pb-6 sm:pb-0'
             ]}
             style={`animation-delay: ${(index + 1) * 100}ms`}
           >
-            <div class="text-3xl sm:text-5xl md:text-6xl font-extrabold text-primary mb-1 md:mb-2 tracking-tight">
+            <div class="text-5xl md:text-6xl font-extrabold text-primary mb-1 md:mb-2 tracking-tight">
               {parsed ? (
                 <span>
                   {parsed.prefix}<span class="count-up" data-target={parsed.number}>0</span>{parsed.suffix}
@@ -43,11 +43,11 @@ function parseValue(value: string) {
                 item.value
               )}
             </div>
-            <div class="text-xs sm:text-base md:text-lg font-semibold text-neutral-content/90 mb-1">
+            <div class="text-base md:text-lg font-semibold text-neutral-content/90 mb-1">
               {item.title}
             </div>
             {item.description && (
-              <div class="hidden sm:block text-sm text-neutral-content/50">
+              <div class="text-sm text-neutral-content/50">
                 {item.description}
               </div>
             )}

@@ -1,0 +1,47 @@
+---
+import type { MappedCtaBanner } from '../lib/mapContent';
+
+type Props = MappedCtaBanner;
+
+const { title, subtitle, cta, backgroundImage } = Astro.props;
+---
+
+<section class="relative overflow-hidden py-20 md:py-28 px-4">
+  {backgroundImage ? (
+    <div
+      class="absolute inset-0 bg-cover bg-center"
+      style={`background-image: url(${backgroundImage.url})`}
+    />
+    <div class="absolute inset-0 bg-secondary/85" />
+  ) : (
+    <div
+      class="absolute inset-0"
+      style="background: linear-gradient(135deg, #004a59 0%, #01a89e 60%, #31cdcf 100%)"
+    />
+  )}
+  <div
+    class="absolute inset-0 opacity-10"
+    style="background-image: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.3) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(255,255,255,0.2) 0%, transparent 50%)"
+  />
+  <div class="section-wave-top" />
+  <div class="relative z-10 max-w-2xl mx-auto text-center text-white">
+    <h2 class="text-3xl md:text-5xl font-extrabold mb-4 tracking-tight fade-on-scroll">
+      {title}
+    </h2>
+    {subtitle && (
+      <p class="text-lg md:text-xl mb-8 text-white/85 fade-on-scroll" style="animation-delay: 100ms">
+        {subtitle}
+      </p>
+    )}
+    {cta && (
+      <a
+        class="inline-flex items-center gap-2 btn btn-lg btn-wide bg-white text-secondary border-2 border-white hover:bg-transparent hover:text-white hover:scale-[1.02] shadow-2xl shadow-black/25 font-bold fade-on-scroll text-lg tracking-wide transition-all duration-300"
+        style="animation-delay: 200ms"
+        href={cta.url}
+      >
+        {cta.linkText}
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    )}
+  </div>
+</section>

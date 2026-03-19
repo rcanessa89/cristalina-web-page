@@ -13,7 +13,7 @@ for (const line of envText.split('\n')) {
 
 const spaceId = env.CONTENTFUL_SPACE_ID
 const accessToken = env.CONTENTFUL_MANAGEMENT_API_ACCESS_TOKEN
-const environmentId = Bun.argv[2] || 'master'
+const environmentId = Bun.argv[2] || 'staging'
 
 if (!spaceId || !accessToken) {
   console.error(

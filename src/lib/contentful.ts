@@ -9,6 +9,7 @@ export const contentfulClient = createClient({
     ? import.meta.env.CONTENTFUL_PREVIEW_TOKEN
     : import.meta.env.CONTENTFUL_DELIVERY_TOKEN,
   host: usePreview ? 'preview.contentful.com' : 'cdn.contentful.com',
+  environment: import.meta.env.CONTENTFUL_ENVIRONMENT || 'staging'
 });
 
 export const getPageContent = async (slug: string, locale: 'es' | 'en') => {

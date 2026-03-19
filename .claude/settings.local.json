@@ -6,7 +6,9 @@
       "mcp__plugin_chrome-devtools-mcp_chrome-devtools__emulate",
       "mcp__plugin_chrome-devtools-mcp_chrome-devtools__navigate_page",
       "Bash(bun run:*)",
-      "Bash(bun:*)"
+      "Bash(bun:*)",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__resize_page",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__take_snapshot"
     ]
   }
 }
