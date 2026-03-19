@@ -27,5 +27,5 @@ const page = data ? mapPage(data) : null;
   ogImage={page?.ogImage?.url}
   slug={slug}
 >
-  {page && <ComponentResolver components={page.components} />}
+  {page && <ComponentResolver components={page.components} locale="es" />}
 </Layout>

@@ -5,9 +5,9 @@ import FacebookIcon from './icons/FacebookIcon.astro';
 import InstagramIcon from './icons/InstagramIcon.astro';
 import WhatsAppIcon from './icons/WhatsAppIcon.astro';
 
-type Props = MappedFooter;
+type Props = MappedFooter & { locale?: string };
 
-const { companyName, description, links, email, phone, address, facebook, instagram, whatsapp } = Astro.props;
+const { companyName, description, links, email, phone, address, facebook, instagram, whatsapp, locale = 'es' } = Astro.props;
 const hasSocial = facebook || instagram || whatsapp;
 const hasContact = email || phone || address;
 ---
@@ -62,7 +62,7 @@ const hasContact = email || phone || address;
       {links && links.length > 0 && (
         <div>
           <h6 class="text-sm font-semibold uppercase tracking-wider text-neutral-content/50 mb-4">
-            Links
+            {locale === 'es' ? 'Links' : 'Links'}
           </h6>
           <ul class="space-y-3">
             {links.map((link) =>
@@ -99,7 +99,7 @@ const hasContact = email || phone || address;
       {hasContact && (
         <div>
           <h6 class="text-sm font-semibold uppercase tracking-wider text-neutral-content/50 mb-4">
-            Contacto
+            {locale === 'es' ? 'Contacto' : 'Contact'}
           </h6>
           <ul class="space-y-3">
             {phone && (

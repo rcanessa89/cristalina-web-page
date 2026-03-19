@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import type { MappedLogoBar } from '../lib/mapContent';
 
 type Props = MappedLogoBar;
@@ -19,9 +20,11 @@ const tripled = [...logos, ...logos, ...logos];
       <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-base-100 to-transparent z-10" />
       <div class="animate-marquee flex items-center gap-16 w-max">
         {tripled.map((logo, i) => (
-          <img
+          <Image
             src={logo.url}
-            alt={logo.title}
+            alt={logo.title || 'Logo'}
+            width={120}
+            height={64}
             class="h-12 md:h-16 w-auto shrink-0 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
           />
         ))}

@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import type { MappedCardList } from '../lib/mapContent';
 import LucideIcon from './icons/LucideIcon.astro';
 import { slugify } from '../lib/utils';
@@ -35,9 +36,10 @@ const sectionId = title ? slugify(title) : undefined;
                 ? 'bg-gradient-to-br from-base-200/60 to-primary/5'
                 : 'bg-gradient-to-bl from-base-200/60 to-secondary/5'
             ]}>
-              <img
+              <Image
                 src={card.image.url}
-                alt={card.image.title}
+                alt={card.image.title || card.title}
+                inferSize
                 class="h-56 md:h-72 object-contain group-hover:scale-105 transition-transform duration-500"
               />
             </div>
@@ -74,9 +76,10 @@ const sectionId = title ? slugify(title) : undefined;
         >
           {card.image && (
             <div class="md:w-1/2 flex justify-center">
-              <img
+              <Image
                 src={card.image.url}
-                alt={card.image.title}
+                alt={card.image.title || card.title}
+                inferSize
                 class="h-96 object-contain group-hover:scale-105 transition-transform duration-500"
               />
             </div>

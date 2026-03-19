@@ -33,5 +33,11 @@ export default defineConfig({
     },
   },
 
+  image: {
+    remotePatterns: [
+      { protocol: "https", hostname: "**.ctfassets.net" },
+    ],
+  },
+
   adapter: netlify(),
 });

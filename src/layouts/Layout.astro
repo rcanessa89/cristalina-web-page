@@ -310,7 +310,7 @@ const howToSchema = isHowItWorks ? JSON.stringify({
 		<main>
 			<slot />
 		</main>
-		{footer && <Footer {...footer} />}
+		{footer && <Footer {...footer} locale={locale} />}
 		<script>
 			const observer = new IntersectionObserver(
 				(entries) => {

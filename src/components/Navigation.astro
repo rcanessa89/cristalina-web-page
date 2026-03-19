@@ -19,7 +19,7 @@ const currentPath = Astro.url.pathname;
 <nav class="navbar bg-secondary/95 backdrop-blur-sm text-secondary-content shadow-lg sticky top-0 z-50 border-b border-white/5 px-4 md:px-8">
   <div class="navbar-start">
     <div class="dropdown">
-      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden" aria-label={locale === 'es' ? 'Abrir menú' : 'Open menu'}>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
         </svg>
@@ -59,8 +59,8 @@ const currentPath = Astro.url.pathname;
   <div class="navbar-end hidden lg:flex items-center gap-1">
     <ul class="flex items-center gap-0.5">
       {links.map((link) => {
-        const isActive = link.url ? currentPath.startsWith(link.url) : false;
-        const hasActiveChild = link.children?.some((child) => child.url && currentPath.startsWith(child.url));
+        const isActive = link.url ? (currentPath === link.url || currentPath === link.url + '/') : false;
+        const hasActiveChild = link.children?.some((child) => child.url && (currentPath === child.url || currentPath === child.url + '/'));
         const active = isActive || hasActiveChild;
         return link.children ? (
           <li class="relative list-none">
@@ -80,7 +80,7 @@ const currentPath = Astro.url.pathname;
                       href={child.url}
                       class:list={[
                         'block px-4 py-2.5 rounded-md text-sm transition-colors',
-                        child.url && currentPath.startsWith(child.url)
+                        child.url && (currentPath === child.url || currentPath === child.url + '/')
                           ? 'bg-primary/10 text-primary font-medium'
                           : 'hover:bg-base-200'
                       ]}

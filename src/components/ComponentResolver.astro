@@ -12,9 +12,10 @@ import LogoBar from './LogoBar.astro';
 
 interface Props {
   components: MappedComponent[];
+  locale?: string;
 }
 
-const { components } = Astro.props;
+const { components, locale } = Astro.props;
 ---
 
 {components.map((component) => (
@@ -25,7 +26,7 @@ const { components } = Astro.props;
   component.type === 'productSpecs' ? <ProductSpecs {...component} /> :
   component.type === 'ctaBanner' ? <CtaBanner {...component} /> :
   component.type === 'processSteps' ? <ProcessSteps {...component} /> :
-  component.type === 'contactSection' ? <ContactSection {...component} /> :
+  component.type === 'contactSection' ? <ContactSection {...component} locale={locale} /> :
   component.type === 'logoBar' ? <LogoBar {...component} /> :
   null
 ))}
