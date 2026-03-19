@@ -123,6 +123,17 @@ export interface MappedProcessSteps {
   items: MappedProcessStep[];
 }
 
+export interface MappedContactSection {
+  id: string;
+  type: 'contactSection';
+  title?: string;
+  description?: string;
+  email?: string;
+  phone?: string;
+  whatsapp?: string;
+  schedule?: string;
+}
+
 export interface MappedLogoBar {
   id: string;
   type: 'logoBar';
@@ -130,7 +141,7 @@ export interface MappedLogoBar {
   logos: MappedAsset[];
 }
 
-export type MappedComponent = MappedHero | MappedStats | MappedCardList | MappedFeatureList | MappedProductSpecs | MappedCtaBanner | MappedProcessSteps | MappedLogoBar;
+export type MappedComponent = MappedHero | MappedStats | MappedCardList | MappedFeatureList | MappedProductSpecs | MappedCtaBanner | MappedProcessSteps | MappedContactSection | MappedLogoBar;
 
 export interface MappedPage {
   title: string;
@@ -343,6 +354,20 @@ function mapProcessSteps(entry: Entry): MappedProcessSteps {
   };
 }
 
+function mapContactSection(entry: Entry): MappedContactSection {
+  const fields = entry.fields as Record<string, any>;
+  return {
+    id: entry.sys.id,
+    type: 'contactSection',
+    title: fields.title,
+    description: fields.description,
+    email: fields.email,
+    phone: fields.phone,
+    whatsapp: fields.whatsapp,
+    schedule: fields.schedule
+  };
+}
+
 function mapLogoBar(entry: Entry): MappedLogoBar {
   const fields = entry.fields as Record<string, any>;
   return {
@@ -363,6 +388,7 @@ const mappers: Record<string, (entry: Entry) => MappedComponent> = {
   productSpecs: mapProductSpecs,
   ctaBanner: mapCtaBanner,
   processSteps: mapProcessSteps,
+  contactSection: mapContactSection,
   logoBar: mapLogoBar
 };
 
