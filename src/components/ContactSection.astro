@@ -117,8 +117,9 @@ const t = {
       <div class="lg:col-span-3 fade-on-scroll" style="animation-delay: 150ms">
         <div class="bg-base-200/50 rounded-3xl p-8 md:p-10 border border-base-300/40">
           <h3 class="text-xl font-bold mb-6">{t.formTitle}</h3>
-          <form id="contact-form" name="contact" method="POST" data-netlify="true" class="space-y-5">
+          <form id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="space-y-5">
             <input type="hidden" name="form-name" value="contact" />
+            <p class="hidden"><input name="bot-field" /></p>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
                 <label for="contact-name" class="text-xs font-semibold text-base-content/50 uppercase tracking-wider mb-1.5 block">{t.name}</label>
