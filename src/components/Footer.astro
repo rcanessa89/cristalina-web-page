@@ -61,7 +61,7 @@ const hasContact = email || phone || address;
 
       {links && links.length > 0 && (
         <div>
-          <h6 class="text-sm font-semibold uppercase tracking-wider text-neutral-content/50 mb-4">
+          <p class="text-sm font-semibold uppercase tracking-wider text-neutral-content/50 mb-4">
             {locale === 'es' ? 'Links' : 'Links'}
           </h6>
           <ul class="space-y-3">
@@ -98,7 +98,7 @@ const hasContact = email || phone || address;
 
       {hasContact && (
         <div>
-          <h6 class="text-sm font-semibold uppercase tracking-wider text-neutral-content/50 mb-4">
+          <p class="text-sm font-semibold uppercase tracking-wider text-neutral-content/50 mb-4">
             {locale === 'es' ? 'Contacto' : 'Contact'}
           </h6>
           <ul class="space-y-3">
@@ -127,7 +127,7 @@ const hasContact = email || phone || address;
     </div>
   </div>
   <div class="border-t border-neutral-content/10 px-6 py-4">
-    <p class="text-center text-sm text-neutral-content/40">
+    <p class="text-center text-sm text-neutral-content/60">
       &copy; {new Date().getFullYear()} {companyName}
     </p>
   </div>
